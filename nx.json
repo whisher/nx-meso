@@ -21,5 +21,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "meso": {
+      "tags": []
+    },
+    "meso-e2e": {
+      "tags": [],
+      "implicitDependencies": ["meso"]
+    }
+  }
 }

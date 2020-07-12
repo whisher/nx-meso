@@ -1,8 +1,113 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "meso": {
+      "root": "apps/meso",
+      "sourceRoot": "apps/meso/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/meso",
+            "index": "apps/meso/src/index.html",
+            "main": "apps/meso/src/main.tsx",
+            "polyfills": "apps/meso/src/polyfills.ts",
+            "tsConfig": "apps/meso/tsconfig.app.json",
+            "assets": ["apps/meso/src/favicon.ico", "apps/meso/src/assets"],
+            "styles": ["apps/meso/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/meso/src/environments/environment.ts",
+                  "with": "apps/meso/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "meso:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "meso:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/meso/tsconfig.app.json",
+              "apps/meso/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/meso/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/meso/jest.config.js",
+            "tsConfig": "apps/meso/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "meso-e2e": {
+      "root": "apps/meso-e2e",
+      "sourceRoot": "apps/meso-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/meso-e2e/cypress.json",
+            "tsConfig": "apps/meso-e2e/tsconfig.e2e.json",
+            "devServerTarget": "meso:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "meso:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/meso-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/meso-e2e/**/*"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/react"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -17,13 +122,19 @@
     },
     "@nrwl/react": {
       "application": {
-        "linter": "eslint"
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
       },
       "library": {
+        "style": "css",
         "linter": "eslint"
       },
       "storybook-configuration": {
         "linter": "eslint"
+      },
+      "component": {
+        "style": "css"
       }
     },
     "@nrwl/next": {
@@ -62,5 +173,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "meso"
 }

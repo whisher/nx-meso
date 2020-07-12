@@ -1,0 +1,23 @@
+{
+  "account.me": "My Profile",
+  "account.logout": "Logout",
+  "auth.login.error": "Wrong email or password.",
+  "auth.login.header": "Welcome back to Meso",
+  "auth.login.subheader": "Log in and enjoy your friend!",
+  "auth.login.hint": "Not on MeSo yet?",
+  "auth.login.signup": "Sign up",
+  "auth.login.label.email": "Email",
+  "auth.login.label.password": "Password",
+  "auth.login.label.submit": "Log in",
+  "auth.signup.header": "Enter the world of MeSo",
+  "auth.signup.subheader": "Sign up it's free!",
+  "auth.signup.hint": "Already a member?",
+  "auth.signup.login": "Log in",
+  "auth.signup.label.username": "Username",
+  "auth.signup.label.email": "Email",
+  "auth.signup.label.password": "Password",
+  "auth.signup.label.submit": "Sign up",
+  "home.header": "Welcome in Meso",
+  "home.subheader": "The social you are looking for",
+  "posts.user.header": "Browse User"
+}
