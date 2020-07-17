@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@iwdf/dto": ["libs/dto/src/index.ts"]
+    },
     "resolveJsonModule": true
   },
   "exclude": ["node_modules", "tmp"]

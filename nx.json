@@ -28,6 +28,12 @@
     "meso-e2e": {
       "tags": [],
       "implicitDependencies": ["meso"]
+    },
+    "api": {
+      "tags": []
+    },
+    "dto": {
+      "tags": []
     }
   }
 }
