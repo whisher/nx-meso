@@ -25,13 +25,7 @@ import {
 import connection from './app/db/connect';
 
 const corsOptions: cors.CorsOptions = {
-  allowedHeaders: [
-    'Origin',
-    'X-Requested-With',
-    'Content-Type',
-    'Accept',
-    'X-Access-Token',
-  ],
+  allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization'],
   credentials: true,
   methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
   origin: environment.baseUrlApi,

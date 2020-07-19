@@ -1,9 +1,12 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-declare module "@material-ui/core/styles/createMuiTheme" {
+declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     layout: {
       header: {
+        height: string;
+      };
+      footer: {
         height: string;
       };
     };
@@ -14,63 +17,66 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       header: {
         height: string;
       };
+      footer: {
+        height: string;
+      };
     };
   }
 }
 const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
-      "@global": {
+      '@global': {
         body: {
-          backgroundColor: "#ffffff",
-          color: "#263238",
+          backgroundColor: '#ffffff',
+          color: '#263238',
         },
       },
     },
   },
   palette: {
     primary: {
-      main: "#6ACAD5 ",
+      main: '#6ACAD5',
     },
     secondary: {
-      main: "#D36532",
+      main: '#D36532',
     },
     background: {
-      default: "#303030",
+      default: '#303030',
     },
   },
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
+      '-apple-system',
+      'BlinkMacSystemFont',
       '"Segoe UI"',
-      "Roboto",
+      'Roboto',
       '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
+      'Arial',
+      'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(","),
+    ].join(','),
     fontWeightMedium: 500,
     h1: {
-      fontSize: "2.986rem",
+      fontSize: '2.986rem',
     },
     h2: {
-      fontSize: "2.488rem",
+      fontSize: '2.488rem',
     },
     h3: {
-      fontSize: "2.074rem",
+      fontSize: '2.074rem',
     },
     h4: {
-      fontSize: "1.728rem",
+      fontSize: '1.728rem',
     },
     h5: {
-      fontSize: "1.44rem",
+      fontSize: '1.44rem',
     },
     h6: {
-      fontSize: "1.2rem",
+      fontSize: '1.2rem',
     },
     body1: {
       fontWeight: 500,
@@ -79,12 +85,15 @@ const theme = createMuiTheme({
       fontSize: 12,
     },
     button: {
-      fontStyle: "italic",
+      fontStyle: 'italic',
     },
   },
   layout: {
     header: {
-      height: "80px",
+      height: '80px',
+    },
+    footer: {
+      height: '60px',
     },
   },
 });

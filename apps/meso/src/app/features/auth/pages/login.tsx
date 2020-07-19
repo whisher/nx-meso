@@ -1,49 +1,53 @@
 // Core
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 // Routing
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // Intl
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 
 // Material
-import Alert from "@material-ui/lab/Alert";
-import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import Typography from "@material-ui/core/Typography";
+import Alert from '@material-ui/lab/Alert';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import Typography from '@material-ui/core/Typography';
 
 // Material Theme
-import { makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 // Types
-import { AuthLoginFormData } from "../../../types";
+import { AuthLoginFormData } from '../../../types';
 
 // Store
-import { authLoginEffects, authReset } from "../../../store/auth";
+import { authLoginEffects, authReset } from '../../../store/auth';
 
 // Hooks
-import { useAuth } from "../../../shared/hooks";
+import { useAuth } from '../../../shared/hooks';
 
 // Components
-import AuthLoginForm from "../components/login-form";
+import AuthLoginForm from '../components/login-form';
 
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
-    "margin-bottom": theme.spacing(2),
+    'margin-bottom': theme.spacing(2),
   },
   body1: {
-    "margin-top": theme.spacing(2),
+    'margin-top': theme.spacing(3),
   },
   icon: {
-    fontSize: "4em",
+    fontSize: '4.5em',
     color: theme.palette.secondary.main,
   },
   iconWrapper: {
-    textAlign: "center",
+    textAlign: 'center',
+    'margin-bottom': theme.spacing(1),
+  },
+  link: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -64,13 +68,6 @@ const AuthLogin = () => {
       <div className={classes.iconWrapper}>
         <LockOpenOutlinedIcon className={classes.icon} />
       </div>
-      <Typography variant="h2" gutterBottom>
-        <FormattedMessage id="auth.login.header" />
-      </Typography>
-
-      <Typography variant="h3" gutterBottom>
-        <FormattedMessage id="auth.login.subheader" />
-      </Typography>
       {hasError && (
         <Alert severity="error" className={classes.alert}>
           <FormattedMessage id="auth.login.error" />
@@ -78,8 +75,8 @@ const AuthLogin = () => {
       )}
       <AuthLoginForm onSubmit={onSubmit} isLoading={isLoading} />
       <Typography className={classes.body1} variant="body1" gutterBottom>
-        <FormattedMessage id="auth.login.hint" />
-        <Link to="/auth/signup">
+        <FormattedMessage id="auth.login.hint" />{' '}
+        <Link color="primary" to="/auth/signup">
           <FormattedMessage id="auth.login.signup" />
         </Link>
       </Typography>

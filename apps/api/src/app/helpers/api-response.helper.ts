@@ -1,12 +1,5 @@
-export const successResponse = (res, msg) => {
-  const resData = {
-    message: msg,
-  };
-  return res.status(200).json(resData);
-};
-
-export const successResponseWithData = (res, data) => {
-  return res.status(200).json(data);
+export const successResponseWithData = <T extends unknown>(res, data) => {
+  return res.status(200).json(data) as T;
 };
 
 export const errorResponse = (res, msg) => {

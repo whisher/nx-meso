@@ -1,8 +1,10 @@
+import { RequestHandler } from 'express';
 import { compare, hash } from 'bcrypt';
 import { validationResult } from 'express-validator';
 import { sign } from 'jsonwebtoken';
 
 import { environment } from '../../environments/environment';
+import { AuthTokenDto, UserDto } from '@iwdf/dto';
 
 import UserModel from '../models/user.model';
 import {
@@ -12,13 +14,12 @@ import {
   validationErrorWithData,
 } from '../helpers/api-response.helper';
 
-export const signup = (req, res) => {
+export const signup: RequestHandler = (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return validationErrorWithData(res, errors.array());
     }
-
     hash(req.body.password, 10, (err, hash) => {
       const user = new UserModel({
         username: req.body.username,
@@ -45,7 +46,7 @@ export const signup = (req, res) => {
   }
 };
 
-export const login = (req, res) => {
+export const login: RequestHandler = (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -69,10 +70,10 @@ export const login = (req, res) => {
               const jwtData = {
                 expiresIn: environment.jwtTimeout,
               };
-              const secret = process.env.JWT_SECRET;
+              const secret = environment.jwtSecret;
               //Generated JWT token with Payload and secret.
               const token = sign(jwtPayload, secret, jwtData);
-              return successResponseWithData(res, token);
+              return successResponseWithData<AuthTokenDto>(res, token);
             } else {
               return unauthorizedResponse(
                 res,
@@ -92,6 +93,6 @@ export const login = (req, res) => {
   }
 };
 
-export const account = (req, res) => {
-  res.status(200).json(req.user);
+export const account: RequestHandler = (req, res) => {
+  successResponseWithData<UserDto>(res, req.user);
 };
