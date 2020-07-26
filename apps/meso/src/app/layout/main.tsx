@@ -25,6 +25,7 @@ const Posts = React.lazy(() => import('../features/posts/posts'));
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flex: '1 1 auto',
+    paddingTop: theme.spacing(2),
   },
 }));
 

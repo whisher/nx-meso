@@ -1,9 +1,10 @@
-import * as express from 'express';
-import { getUsers } from '../controllers/users.controller';
+import { Router } from 'express';
+import { getUserById, getUsers } from '../controllers/users.controller';
 import auth from '../middlewares/jwt';
 
-const router = express.Router();
+const router = Router();
+router.param('userId', getUserById);
 
-router.get('/', getUsers);
+router.get('/', auth, getUsers);
 
 export default router;

@@ -1,9 +1,4 @@
-export interface UserDto {
-  _id: string;
-  avatar: string;
-  email: string;
-  username: string;
-}
+import { UserDto } from '@iwdf/dto';
 
 export interface AccountState {
   error: boolean;

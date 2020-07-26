@@ -21,7 +21,7 @@ const UsersList = ({ loaded, users }: UsersListProps) => {
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">
-        <FormattedMessage id="posts.user.header" />
+        <FormattedMessage id="post.user.header" />
       </Box>
       {users.map((user) => (
         <UserBox key={user._id} user={user}></UserBox>

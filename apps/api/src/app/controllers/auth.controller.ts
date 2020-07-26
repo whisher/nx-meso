@@ -27,7 +27,6 @@ export const signup: RequestHandler = (req, res) => {
         password: hash,
       });
 
-      // Save user.
       user.save((err) => {
         if (err) {
           return errorResponse(res, err);
@@ -41,7 +40,6 @@ export const signup: RequestHandler = (req, res) => {
       });
     });
   } catch (err) {
-    //throw error in json response with status 500.
     return errorResponse(res, err);
   }
 };
@@ -94,5 +92,6 @@ export const login: RequestHandler = (req, res) => {
 };
 
 export const account: RequestHandler = (req, res) => {
-  successResponseWithData<UserDto>(res, req.user);
+  const user = req['user'];
+  successResponseWithData<UserDto>(res, user);
 };

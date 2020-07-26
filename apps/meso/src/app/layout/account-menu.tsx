@@ -1,27 +1,33 @@
 // Core
-import React from "react";
+import React from 'react';
 
 // Intl
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
+
+// Redux
+import { useDispatch } from 'react-redux';
 
 // Material
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // Material Theme
-import { makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+
+// Model
+import { UserDto } from '@iwdf/dto';
 
 // Store
-import { UserDto } from "../types";
+import { authLogout } from '../store/auth';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 }));
 
@@ -31,7 +37,7 @@ export interface AccountMenuProps {
 }
 const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,13 +47,13 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleLogout = () => {
+    setAnchorEl(null);
+    dispatch(authLogout());
+  };
   return loaded ? (
     <div className={classes.root}>
-      <Avatar
-        alt={account?.username}
-        src="http://localhost:3030/images/profile-image.jpg"
-      />
+      <Avatar alt={account?.username} src="/images/profile-image.jpg" />
       <Button
         variant="outlined"
         color="secondary"
@@ -67,7 +73,7 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
         <MenuItem onClick={handleClose}>
           <FormattedMessage id="account.me" />
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <FormattedMessage id="account.logout" />
         </MenuItem>
       </Menu>

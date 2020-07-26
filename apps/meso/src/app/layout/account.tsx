@@ -1,13 +1,13 @@
 // Core
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Material
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 
-import { useAccount } from "../shared/hooks";
+import { useAccount } from '../shared/hooks';
 
-import AccountMenu from "./account-menu";
+import AccountMenu from './account-menu';
 
 export interface AccountProps {
   isAuthenticated: boolean;
@@ -21,7 +21,7 @@ const Account = ({ isAuthenticated }: AccountProps) => {
       variant="outlined"
       color="secondary"
       component={Link}
-      to={"/auth/login"}
+      to={'/auth/login'}
     >
       Login
     </Button>

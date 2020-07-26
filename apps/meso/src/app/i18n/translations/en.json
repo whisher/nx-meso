@@ -19,5 +19,6 @@
   "auth.signup.label.submit": "Sign up",
   "home.header": "Welcome in Meso",
   "home.subheader": "The social you are looking for",
-  "posts.user.header": "Browse User"
+  "post.user.header": "Browse User",
+  "post.submit": "Public"
 }

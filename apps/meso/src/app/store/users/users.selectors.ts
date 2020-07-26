@@ -1,4 +1,5 @@
-import { UserDto, UsersState } from "../../types";
+import { UserDto } from '@iwdf/dto';
+import { UsersState } from '../../types';
 
 export const selectUsersData = (state: { users: UsersState }): UserDto[] =>
   state.users.data;

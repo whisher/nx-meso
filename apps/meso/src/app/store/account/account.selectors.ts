@@ -1,4 +1,6 @@
-import { UserDto, AccountState } from "../../types";
+import { UserDto } from '@iwdf/dto';
+
+import { AccountState } from '../../types';
 
 export const selectAccountData = (state: {
   account: AccountState;

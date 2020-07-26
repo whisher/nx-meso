@@ -21,7 +21,7 @@ const Auth = () => {
   let { path } = useRouteMatch();
   return (
     <Grid className={classes.root} container justify="center">
-      <Grid item xs={10} sm={6} lg={4}>
+      <Grid item xs={10} sm={8} lg={6}>
         <Switch>
           <Route path={`${path}/confirm`} exact>
             <AuthConfirm />

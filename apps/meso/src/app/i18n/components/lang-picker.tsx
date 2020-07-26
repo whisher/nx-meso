@@ -1,17 +1,22 @@
-import React from "react";
+import React from 'react';
 
 // Material
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 // Material Theme
-import { makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    "border-color": theme.palette.secondary.main,
+    '& > .Mui-selected': {
+      backgroundColor: 'rgba(255,255,255,.2)',
+    },
+  },
+  button: {
+    'border-color': theme.palette.secondary.main,
   },
 }));
 export interface LangPickerProps {
@@ -31,6 +36,7 @@ const LangPicker = ({
 
   return (
     <ToggleButtonGroup
+      className={classes.root}
       value={currentLang}
       exclusive
       onChange={onSetLang}
@@ -38,7 +44,7 @@ const LangPicker = ({
     >
       {supportedLanguages.map((lang, index) => (
         <ToggleButton
-          className={classes.root}
+          className={classes.button}
           key={index}
           value={lang}
           size="small"

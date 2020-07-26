@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 import axios from '../../axios';
-import { UserDto } from '../types';
+import { UserDto } from '@iwdf/dto';
 
 const BASE_URL_API = environment.baseUrlApi;
 
