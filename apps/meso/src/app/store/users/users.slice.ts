@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { UsersState } from "../../types";
+import { createSlice } from '@reduxjs/toolkit';
+import { UsersState } from '../../types';
 
 const usersInitialState: UsersState = {
   error: false,
@@ -8,13 +8,13 @@ const usersInitialState: UsersState = {
 };
 
 export const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState: usersInitialState as UsersState,
   reducers: {
     usersLoad: (state) => {
       return {
         ...state,
-        loaded: true,
+        loaded: false,
       };
     },
     usersLoadFailure: (state) => {

@@ -22,7 +22,7 @@ const userSchema = Schema(
     avatar: {
       type: String,
       required: 'Avatar image is required',
-      default: '/assets/images/profile-image.jpg',
+      default: '/images/profile-image.jpg',
     },
     email: {
       type: String,

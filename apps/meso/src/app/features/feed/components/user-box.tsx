@@ -8,6 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
+import { environment } from '../../../../environments/environment';
+
 // Models
 import { UserDto } from '@iwdf/dto';
 
@@ -28,7 +30,10 @@ const UserBox = ({ user }: UsersBoxProps) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Avatar alt={user.avatar} src={user.avatar} />
+      <Avatar
+        alt={user.avatar}
+        src={`${environment.baseUrlApi}${user.avatar}`}
+      />
       <h3>{user.username}</h3>
     </div>
   );

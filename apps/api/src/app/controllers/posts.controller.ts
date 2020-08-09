@@ -8,14 +8,13 @@ import PostModel from '../models/post.model';
 
 export const addPost: RequestHandler = async (req, res) => {
   try {
-    console.log('user', req['user']);
     req.body.postedBy = req['user']._id;
     const post = await new PostModel(req.body).save();
     await PostModel.populate(post, {
       path: 'postedBy',
       select: '_id name avatar',
     });
-    return successResponseWithData<PostDto>(res, {});
+    return successResponseWithData<PostDto>(res, post);
   } catch (err) {
     return errorResponse(res, err);
   }

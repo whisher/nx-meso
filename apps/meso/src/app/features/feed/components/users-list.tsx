@@ -13,11 +13,10 @@ import { UserDto } from '@iwdf/dto';
 import UserBox from './user-box';
 
 export interface UsersListProps {
-  loaded: boolean;
   users: UserDto[];
 }
 
-const UsersList = ({ loaded, users }: UsersListProps) => {
+const UsersList = ({ users }: UsersListProps) => {
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">

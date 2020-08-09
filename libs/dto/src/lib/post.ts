@@ -1,4 +1,5 @@
 export interface PostDto {
+  _id: string;
   text: string;
   image?: string;
   likes: any[];

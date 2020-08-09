@@ -29,7 +29,7 @@ import { AuthSignupFormData } from '../../../types';
 import { useForm } from '../../../shared/hooks';
 
 // UI
-import LoaderButton from '../../../shared/ui/LoaderButton/LoaderButton';
+import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
 // Utils
 import { isValid, isEmail } from '../../../shared/utils/validators';

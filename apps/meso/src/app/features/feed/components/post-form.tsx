@@ -30,7 +30,7 @@ import { PostFormData } from '../../../types';
 import { useForm } from '../../../shared/hooks';
 
 // UI
-import LoaderButton from '../../../shared/ui/LoaderButton/LoaderButton';
+import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
