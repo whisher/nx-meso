@@ -17,6 +17,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
+// Env
+import { environment } from '../../environments/environment';
+
 // Model
 import { UserDto } from '@iwdf/dto';
 
@@ -39,7 +42,7 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  console.log('account', account, loaded);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,7 +56,10 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
   };
   return loaded ? (
     <div className={classes.root}>
-      <Avatar alt={account?.username} src="/images/profile-image.jpg" />
+      <Avatar
+        alt={account?.username}
+        src={`${environment.baseUrlImage}${account.avatar}`}
+      />
       <Button
         variant="outlined"
         color="secondary"

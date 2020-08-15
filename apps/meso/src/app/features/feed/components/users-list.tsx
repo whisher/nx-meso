@@ -10,6 +10,9 @@ import { FormattedMessage } from 'react-intl';
 // Models
 import { UserDto } from '@iwdf/dto';
 
+// Services
+import { UsersService } from '../../../services';
+
 import UserBox from './user-box';
 
 export interface UsersListProps {
@@ -17,13 +20,24 @@ export interface UsersListProps {
 }
 
 const UsersList = ({ users }: UsersListProps) => {
+  const onFollow = (user: UserDto) => {
+    UsersService.addFollow(user).then((data) => {});
+  };
+  const onUnFollow = (user: UserDto) => {
+    //UsersService.addFollow(user).then((data) => {});
+  };
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">
         <FormattedMessage id="post.user.header" />
       </Box>
       {users.map((user) => (
-        <UserBox key={user._id} user={user}></UserBox>
+        <UserBox
+          key={user._id}
+          user={user}
+          handlerFollow={onFollow}
+          handlerUnFollow={onUnFollow}
+        ></UserBox>
       ))}
     </div>
   );

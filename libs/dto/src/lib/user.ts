@@ -5,6 +5,6 @@ export interface UserDto {
   email: string;
   username: string;
   createdAt: number;
-  following: UserDto[];
-  followers: UserDto[];
+  following: string[];
+  followers: string[];
 }

@@ -14,6 +14,7 @@ export interface AccountProps {
 }
 const Account = ({ isAuthenticated }: AccountProps) => {
   const { data, loaded } = useAccount();
+  console.log('account', data, loaded);
   return isAuthenticated ? (
     <AccountMenu account={data} loaded={loaded} />
   ) : (

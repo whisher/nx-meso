@@ -54,7 +54,7 @@ const PostBox = ({ post, user }: PostBoxProps) => {
         <div className={classes.subheader}>
           <Avatar
             alt={user.avatar}
-            src={`${environment.baseUrlApi}${user.avatar}`}
+            src={`${environment.baseUrlImage}${user.avatar}`}
           />
           <h3>{user.username}</h3>
         </div>
