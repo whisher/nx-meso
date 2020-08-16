@@ -59,13 +59,11 @@ const Main = ({
     <div className={classes.root}>
       <header className={classes.header}>
         <Logo></Logo>
-
         <Container maxWidth="md">
           <div className={classes.account}>
             <Account isAuthenticated={isAuthenticated}></Account>
           </div>
         </Container>
-
         <LangPicker
           currentLang={currentLang}
           supportedLanguages={supportedLanguages}

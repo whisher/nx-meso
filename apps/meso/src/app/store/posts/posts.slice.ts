@@ -11,10 +11,32 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState: postsInitialState as PostsState,
   reducers: {
-    postsLoad: (state) => {
+    postsAdd: (state) => {
       return {
         ...state,
         loaded: true,
+      };
+    },
+    postsAddFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+        loaded: false,
+        data: [],
+      };
+    },
+    postsAddSuccess: (state, action) => {
+      return {
+        ...state,
+        error: false,
+        loaded: true,
+        data: [...state.data, action.payload],
+      };
+    },
+    postsLoad: (state) => {
+      return {
+        ...state,
+        loaded: false,
       };
     },
     postsLoadFailure: (state) => {
@@ -37,6 +59,9 @@ export const postsSlice = createSlice({
 });
 
 export const {
+  postsAdd,
+  postsAddFailure,
+  postsAddSuccess,
   postsLoad,
   postsLoadFailure,
   postsLoadSuccess,

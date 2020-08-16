@@ -18,12 +18,6 @@ import { UserDto } from '@iwdf/dto';
 // Hooks
 import { useAccount } from '../../../shared/hooks';
 
-export interface UsersBoxProps {
-  handlerFollow: (user: UserDto) => void;
-  handlerUnFollow: (user: UserDto) => void;
-  user: UserDto;
-}
-
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -38,6 +32,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
+
+export interface UsersBoxProps {
+  handlerFollow: (user: UserDto) => void;
+  handlerUnFollow: (user: UserDto) => void;
+  user: UserDto;
+}
+
 const UserBox = ({ handlerFollow, handlerUnFollow, user }: UsersBoxProps) => {
   const classes = useStyles();
   const { data: currentUser } = useAccount();

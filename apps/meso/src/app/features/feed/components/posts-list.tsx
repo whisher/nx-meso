@@ -4,6 +4,7 @@ import React from 'react';
 // Models
 import { PostDto, UserDto } from '@iwdf/dto';
 
+// Components
 import PostBox from './post-box';
 
 export interface PostsListProps {

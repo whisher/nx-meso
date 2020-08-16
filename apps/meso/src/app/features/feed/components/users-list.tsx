@@ -10,22 +10,20 @@ import { FormattedMessage } from 'react-intl';
 // Models
 import { UserDto } from '@iwdf/dto';
 
-// Services
-import { UsersService } from '../../../services';
-
+// Components
 import UserBox from './user-box';
 
 export interface UsersListProps {
+  handlerFollow: (user: UserDto) => void;
+  handlerUnFollow: (user: UserDto) => void;
   users: UserDto[];
 }
 
-const UsersList = ({ users }: UsersListProps) => {
-  const onFollow = (user: UserDto) => {
-    UsersService.addFollow(user).then((data) => {});
-  };
-  const onUnFollow = (user: UserDto) => {
-    //UsersService.addFollow(user).then((data) => {});
-  };
+const UsersList = ({
+  handlerFollow,
+  handlerUnFollow,
+  users,
+}: UsersListProps) => {
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">
@@ -35,8 +33,8 @@ const UsersList = ({ users }: UsersListProps) => {
         <UserBox
           key={user._id}
           user={user}
-          handlerFollow={onFollow}
-          handlerUnFollow={onUnFollow}
+          handlerFollow={handlerFollow}
+          handlerUnFollow={handlerUnFollow}
         ></UserBox>
       ))}
     </div>
