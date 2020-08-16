@@ -1,12 +1,12 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import {
   combineReducers,
   configureStore,
   getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+} from '@reduxjs/toolkit';
 
-import { createBrowserHistory, History } from "history";
-import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createBrowserHistory, History } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import {
   persistStore,
@@ -17,20 +17,21 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import accountReducer from "./account/account.slice";
-import authReducer from "./auth/auth.slice";
-import langReducer from "./lang/lang.slice";
-import usersReducer from "./users/users.slice";
+import accountReducer from './account/account.slice';
+import authReducer from './auth/auth.slice';
+import langReducer from './lang/lang.slice';
+import postsReducer from './posts/posts.slice';
+import usersReducer from './users/users.slice';
 
 export const history = createBrowserHistory();
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["auth", "lang", "account"],
+  whitelist: ['auth', 'lang', 'account'],
 };
 
 const createRootReducer = (history: History) =>
@@ -39,6 +40,7 @@ const createRootReducer = (history: History) =>
     auth: authReducer,
     lang: langReducer,
     router: connectRouter(history),
+    posts: postsReducer,
     users: usersReducer,
   });
 

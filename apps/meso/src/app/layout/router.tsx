@@ -9,7 +9,7 @@ import Loader from './loader';
 // Lazy Loading
 const Auth = React.lazy(() => import('../features/auth/auth.router'));
 const Home = React.lazy(() => import('../features/home/home'));
-const Posts = React.lazy(() => import('../features/posts/posts'));
+const Feed = React.lazy(() => import('../features/feed/pages/feed'));
 
 export interface RouterProps {
   isAuthenticated: boolean;
@@ -22,7 +22,7 @@ const Router = ({ isAuthenticated }: RouterProps) => {
           {isAuthenticated ? <Redirect from="/auth" to="/home" /> : <Auth />}
         </Route>
         <Route path="/" exact>
-          {isAuthenticated ? <Posts /> : <Home />}
+          {isAuthenticated ? <Feed /> : <Home />}
         </Route>
         <Redirect from="*" to="/" />
       </Switch>

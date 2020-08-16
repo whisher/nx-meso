@@ -1,43 +1,43 @@
 // Core
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 // Intl
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from 'react-intl';
 
 // Material
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 // Material Icons
-import LockIcon from "@material-ui/icons/LockRounded";
-import MailIcon from "@material-ui/icons/MailRounded";
-import Visibility from "@material-ui/icons/VisibilityRounded";
-import VisibilityOff from "@material-ui/icons/VisibilityOffRounded";
+import LockIcon from '@material-ui/icons/LockRounded';
+import MailIcon from '@material-ui/icons/MailRounded';
+import Visibility from '@material-ui/icons/VisibilityRounded';
+import VisibilityOff from '@material-ui/icons/VisibilityOffRounded';
 
 // Material Theme
-import { makeStyles } from "@material-ui/core/styles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 // Types
-import { AuthLoginFormData } from "../../../types";
+import { AuthLoginFormData } from '../../../types';
 
 // Custom Hooks
-import { useForm } from "../../../shared/hooks";
+import { useForm } from '../../../shared/hooks';
 
 // UI
-import LoaderButton from "../../../shared/ui/LoaderButton/LoaderButton";
+import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
 // Utils
-import { isValid, isEmail } from "../../../shared/utils/validators";
+import { isValid, isEmail } from '../../../shared/utils/validators';
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   margin: {
-    "margin-bottom": theme.spacing(2),
+    'margin-bottom': theme.spacing(2),
   },
 }));
 
@@ -51,8 +51,8 @@ const AuthLoginForm = ({ isLoading, onSubmit }: AuthLoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isDisabled, setDisabled] = useState(true);
   const initialState: AuthLoginFormData = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 
   const { state, bind } = useForm(initialState);
@@ -111,7 +111,7 @@ const AuthLoginForm = ({ isLoading, onSubmit }: AuthLoginFormProps) => {
             </InputLabel>
             <OutlinedInput
               id="auth-password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               name="password"
               value={password}
               {...bind}

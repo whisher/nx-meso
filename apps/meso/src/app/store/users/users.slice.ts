@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { UsersState } from "../../types";
+import { createSlice } from '@reduxjs/toolkit';
+import { UsersState } from '../../types';
 
 const usersInitialState: UsersState = {
   error: false,
@@ -8,13 +8,39 @@ const usersInitialState: UsersState = {
 };
 
 export const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState: usersInitialState as UsersState,
   reducers: {
+    usersFollow: (state) => {
+      return {
+        ...state,
+      };
+    },
+    usersFollowFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
+    usersFollowSuccess: (state, action) => {
+      const userId = action.payload._id;
+      const data = state.data.map((user) => {
+        if (user._id === userId) {
+          user = action.payload;
+        }
+        return user;
+      });
+      return {
+        ...state,
+        data,
+        error: false,
+        loaded: true,
+      };
+    },
     usersLoad: (state) => {
       return {
         ...state,
-        loaded: true,
+        loaded: false,
       };
     },
     usersLoadFailure: (state) => {
@@ -33,13 +59,45 @@ export const usersSlice = createSlice({
         data: action.payload,
       };
     },
+    usersUnFollow: (state) => {
+      return {
+        ...state,
+      };
+    },
+    usersUnFollowFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
+    usersUnFollowSuccess: (state, action) => {
+      const userId = action.payload._id;
+      const data = state.data.map((user) => {
+        if (user._id === userId) {
+          user = action.payload;
+        }
+        return user;
+      });
+      return {
+        ...state,
+        data,
+        error: false,
+        loaded: true,
+      };
+    },
   },
 });
 
 export const {
+  usersFollow,
+  usersFollowFailure,
+  usersFollowSuccess,
   usersLoad,
   usersLoadFailure,
   usersLoadSuccess,
+  usersUnFollow,
+  usersUnFollowFailure,
+  usersUnFollowSuccess,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

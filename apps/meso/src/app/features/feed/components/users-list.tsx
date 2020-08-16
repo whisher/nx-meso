@@ -10,21 +10,32 @@ import { FormattedMessage } from 'react-intl';
 // Models
 import { UserDto } from '@iwdf/dto';
 
+// Components
 import UserBox from './user-box';
 
 export interface UsersListProps {
-  loaded: boolean;
+  handlerFollow: (user: UserDto) => void;
+  handlerUnFollow: (user: UserDto) => void;
   users: UserDto[];
 }
 
-const UsersList = ({ loaded, users }: UsersListProps) => {
+const UsersList = ({
+  handlerFollow,
+  handlerUnFollow,
+  users,
+}: UsersListProps) => {
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">
         <FormattedMessage id="post.user.header" />
       </Box>
       {users.map((user) => (
-        <UserBox key={user._id} user={user}></UserBox>
+        <UserBox
+          key={user._id}
+          user={user}
+          handlerFollow={handlerFollow}
+          handlerUnFollow={handlerUnFollow}
+        ></UserBox>
       ))}
     </div>
   );

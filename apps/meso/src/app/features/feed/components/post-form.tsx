@@ -20,6 +20,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
+// Env
+import { environment } from '../../../../environments/environment';
+
 // Models
 import { UserDto } from '@iwdf/dto';
 
@@ -30,7 +33,7 @@ import { PostFormData } from '../../../types';
 import { useForm } from '../../../shared/hooks';
 
 // UI
-import LoaderButton from '../../../shared/ui/LoaderButton/LoaderButton';
+import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -102,7 +105,7 @@ const PostForm = ({ isDisabled, isLoading, onSubmit, user }: PostFormProps) => {
     <Card className={classes.card}>
       <form onSubmit={submitHandler} noValidate autoComplete="off">
         <CardHeader
-          avatar={<Avatar src={user.avatar} />}
+          avatar={<Avatar src={`${environment.baseUrlImage}${user.avatar}`} />}
           title={
             <Typography variant="h6" component="h2">
               {user.username}
