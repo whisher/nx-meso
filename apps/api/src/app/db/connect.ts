@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 const connection = () => {
   const MONGODB_URL = environment.mongoDb;
-  const DB = environment.production ? 'production10' : 'development23';
+  const DB = environment.production ? 'production10' : 'devops1';
   const options = { useNewUrlParser: true, useUnifiedTopology: true };
   const uri = `${MONGODB_URL}/${DB}`;
   connect(uri, options)

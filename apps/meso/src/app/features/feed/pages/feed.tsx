@@ -28,7 +28,7 @@ import { PostFormData } from '../../../types';
 import IwdfSpinner from '../../../shared/ui/spinner/spinner';
 
 // Components
-import { PostForm, PostsList, UsersList } from '../components';
+import { FeedSwitcher, PostForm, Posts, Users } from '../components';
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -65,14 +65,14 @@ const Feed = () => {
           user={user}
         ></PostForm>
         {postsLoaded ? (
-          <PostsList posts={posts} user={user} />
+          <FeedSwitcher posts={posts} user={user} />
         ) : (
           <IwdfSpinner />
         )}
       </Grid>
       <Grid item xs={12} lg={3}>
         {usersLoaded ? (
-          <UsersList
+          <Users
             users={users}
             handlerFollow={onFollow}
             handlerUnFollow={onUnFollow}

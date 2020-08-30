@@ -5,6 +5,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 
 // Components
 import Loader from './loader';
+import ErrorBoundary from './error';
 
 // Lazy Loading
 const Auth = React.lazy(() => import('../features/auth/auth.router'));
@@ -16,17 +17,19 @@ export interface RouterProps {
 }
 const Router = ({ isAuthenticated }: RouterProps) => {
   return (
-    <Suspense fallback={<Loader></Loader>}>
-      <Switch>
-        <Route path="/auth">
-          {isAuthenticated ? <Redirect from="/auth" to="/home" /> : <Auth />}
-        </Route>
-        <Route path="/" exact>
-          {isAuthenticated ? <Feed /> : <Home />}
-        </Route>
-        <Redirect from="*" to="/" />
-      </Switch>
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route path="/auth">
+            {isAuthenticated ? <Redirect from="/auth" to="/home" /> : <Auth />}
+          </Route>
+          <Route path="/" exact>
+            {isAuthenticated ? <Feed /> : <Home />}
+          </Route>
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

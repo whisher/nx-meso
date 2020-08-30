@@ -29,9 +29,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 const Logo = () => {
-  const u = true;
   const classes = useStyles();
-  return u ? (
+  return (
     <Typography className={classes.root} variant="h1">
       <NavLink className={classes.link} to="/">
         <div className={classes.wrapper}>
@@ -40,7 +39,7 @@ const Logo = () => {
         </div>
       </NavLink>
     </Typography>
-  ) : null;
+  );
 };
 
 export default Logo;

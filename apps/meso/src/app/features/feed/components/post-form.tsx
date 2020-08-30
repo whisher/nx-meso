@@ -105,7 +105,7 @@ const PostForm = ({ isDisabled, isLoading, onSubmit, user }: PostFormProps) => {
     <Card className={classes.card}>
       <form onSubmit={submitHandler} noValidate autoComplete="off">
         <CardHeader
-          avatar={<Avatar src={`${environment.baseUrlImage}${user.avatar}`} />}
+          avatar={<Avatar src={`${environment.baseUrlImage}${user?.avatar}`} />}
           title={
             <Typography variant="h6" component="h2">
               {user.username}

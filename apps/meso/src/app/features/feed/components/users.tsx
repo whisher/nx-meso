@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { UserDto } from '@iwdf/dto';
 
 // Components
-import UserBox from './user-box';
+import User from './user';
 
 export interface UsersListProps {
   handlerFollow: (user: UserDto) => void;
@@ -19,26 +19,22 @@ export interface UsersListProps {
   users: UserDto[];
 }
 
-const UsersList = ({
-  handlerFollow,
-  handlerUnFollow,
-  users,
-}: UsersListProps) => {
+const Users = ({ handlerFollow, handlerUnFollow, users }: UsersListProps) => {
   return (
     <div>
       <Box component="h3" color="white" bgcolor="primary.main">
         <FormattedMessage id="post.user.header" />
       </Box>
       {users.map((user) => (
-        <UserBox
+        <User
           key={user._id}
           user={user}
           handlerFollow={handlerFollow}
           handlerUnFollow={handlerUnFollow}
-        ></UserBox>
+        ></User>
       ))}
     </div>
   );
 };
 
-export default UsersList;
+export default Users;

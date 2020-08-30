@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
 }));
-const PostBox = ({ post, user }: PostBoxProps) => {
+const Post = ({ post, user }: PostBoxProps) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -75,4 +75,4 @@ const PostBox = ({ post, user }: PostBoxProps) => {
   );
 };
 
-export default PostBox;
+export default Post;

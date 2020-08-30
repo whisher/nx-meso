@@ -58,7 +58,7 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
     <div className={classes.root}>
       <Avatar
         alt={account?.username}
-        src={`${environment.baseUrlImage}${account.avatar}`}
+        src={`${environment.baseUrlImage}${account?.avatar}`}
       />
       <Button
         variant="outlined"

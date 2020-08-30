@@ -39,7 +39,7 @@ export interface UsersBoxProps {
   user: UserDto;
 }
 
-const UserBox = ({ handlerFollow, handlerUnFollow, user }: UsersBoxProps) => {
+const User = ({ handlerFollow, handlerUnFollow, user }: UsersBoxProps) => {
   const classes = useStyles();
   const { data: currentUser } = useAccount();
   const [hover, sethover] = useState(false);
@@ -79,4 +79,4 @@ const UserBox = ({ handlerFollow, handlerUnFollow, user }: UsersBoxProps) => {
   );
 };
 
-export default UserBox;
+export default User;

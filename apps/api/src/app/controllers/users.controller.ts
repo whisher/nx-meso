@@ -10,6 +10,7 @@ import UserModel from '../models/user.model';
 export const getUsers: RequestHandler = async (req, res) => {
   try {
     const user = req['user'];
+
     const users = await UserModel.find({ _id: { $ne: user._id } }).select(
       '_id username email avatar createdAt updatedAt following followers'
     );

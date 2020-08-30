@@ -5,21 +5,21 @@ import React from 'react';
 import { PostDto, UserDto } from '@iwdf/dto';
 
 // Components
-import PostBox from './post-box';
+import Post from './post';
 
 export interface PostsListProps {
   posts: PostDto[];
   user: UserDto;
 }
 
-const PostsList = ({ posts, user }: PostsListProps) => {
+const Posts = ({ posts, user }: PostsListProps) => {
   return (
     <div>
       {posts.map((post) => (
-        <PostBox key={post._id} user={user} post={post}></PostBox>
+        <Post key={post._id} user={user} post={post} />
       ))}
     </div>
   );
 };
 
-export default PostsList;
+export default Posts;

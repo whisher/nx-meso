@@ -48,6 +48,7 @@ export const getPostById = async (req, res, next, id) => {
   }
   next();
 };
+
 export const getPostsByUserId = async (req, res) => {
   try {
     const postedBy = req['user']._id;
@@ -72,26 +73,3 @@ export const getFeedByUserId = async (req, res) => {
     return errorResponse(res, err);
   }
 };
-/** FOR DEV  */
-export const getPosts: RequestHandler = async (req, res) => {
-  try {
-    const user = req['user'];
-    const users = await PostModel.find();
-    return successResponseWithData<PostDto[]>(res, users);
-  } catch (err) {
-    return errorResponse(res, err);
-  }
-};
-/*
-exports.getPostById = async (req, res, next, id) => {
-  const post = await PostModel.findOne({ _id: id });
-  req.post = post;
-
-  const posterId = mongoose.Types.ObjectId(req.post.postedBy._id);
-  if (req.user && posterId.equals(req.user._id)) {
-    req.isPoster = true;
-    return next();
-  }
-  next();
-};
-*/
