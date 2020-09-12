@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React, { useState } from 'react';
 
 // Material
 import Tab from '@material-ui/core/Tab';
@@ -15,7 +15,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { UserDto, PostDto } from '@iwdf/dto';
 
 // Components
-import { Posts } from '../components';
+import Posts from './posts';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,9 +23,7 @@ interface TabPanelProps {
   value: any;
 }
 
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
+const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => {
   return (
     <div
       role="tabpanel"
@@ -38,10 +36,12 @@ const TabPanel = (props: TabPanelProps) => {
     </div>
   );
 };
+
 export interface FeedSwitcherProps {
   posts: PostDto[];
   user: UserDto;
 }
+
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -49,9 +49,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
 }));
+
 const FeedSwitcher = ({ posts, user }: FeedSwitcherProps) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);

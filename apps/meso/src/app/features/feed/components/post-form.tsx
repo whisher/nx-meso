@@ -1,5 +1,10 @@
 // Core
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+
+type BreakpointOrNull = Breakpoint | null;
 
 // Intl
 import { FormattedMessage } from 'react-intl';
@@ -35,9 +40,21 @@ import { useForm } from '../../../shared/hooks';
 // UI
 import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
+function useWidth() {
+  const theme: Theme = useTheme();
+  const keys: Breakpoint[] = [...theme.breakpoints.keys].reverse();
+  return (
+    keys.reduce((output: BreakpointOrNull, key: Breakpoint) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const matches = useMediaQuery(theme.breakpoints.up(key));
+      return !output && matches ? key : output;
+    }, null) || 'xs'
+  );
+}
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
-  card: {
+  root: {
+    width: useWidth() === 'lg' ? '450px' : 'auto',
     marginBottom: theme.spacing(3),
     backgroundColor: theme.palette.primary.light,
   },
@@ -95,14 +112,17 @@ const PostForm = ({ isDisabled, isLoading, onSubmit, user }: PostFormProps) => {
     const data = fileToUpLoad ? { ...state, image: fileToUpLoad } : state;
     onSubmit(data);
   };
+
   const handleUploadImage = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const file = (e.target as HTMLInputElement).files[0];
     setFileToUpLoad(file);
   };
+
   const createObjectURL = (file) => URL.createObjectURL(file);
+
   return (
-    <Card className={classes.card}>
+    <Card className={classes.root}>
       <form onSubmit={submitHandler} noValidate autoComplete="off">
         <CardHeader
           avatar={<Avatar src={`${environment.baseUrlImage}${user?.avatar}`} />}
