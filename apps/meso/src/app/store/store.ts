@@ -22,6 +22,7 @@ import storage from 'redux-persist/lib/storage';
 
 import accountReducer from './account/account.slice';
 import authReducer from './auth/auth.slice';
+import feedReducer from './feed/feed.slice';
 import langReducer from './lang/lang.slice';
 import postsReducer from './posts/posts.slice';
 import usersReducer from './users/users.slice';
@@ -38,6 +39,7 @@ const createRootReducer = (history: History) =>
   combineReducers({
     account: accountReducer,
     auth: authReducer,
+    feed: feedReducer,
     lang: langReducer,
     router: connectRouter(history),
     posts: postsReducer,

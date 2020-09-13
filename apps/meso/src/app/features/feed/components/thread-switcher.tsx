@@ -15,6 +15,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { UserDto, PostDto } from '@iwdf/dto';
 
 // Components
+import Feed from './feed';
 import Posts from './posts';
 
 interface TabPanelProps {
@@ -37,9 +38,12 @@ const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => {
   );
 };
 
-export interface FeedSwitcherProps {
+export interface ThreadSwitcherProps {
+  handleChange: (event: React.ChangeEvent<{}>, value: number) => void;
+  feed: PostDto[];
   posts: PostDto[];
   user: UserDto;
+  value: number;
 }
 
 // Styles
@@ -50,13 +54,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const FeedSwitcher = ({ posts, user }: FeedSwitcherProps) => {
+const ThreadSwitcher = ({
+  handleChange,
+  feed,
+  posts,
+  user,
+  value,
+}: ThreadSwitcherProps) => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
   return (
     <div className={classes.root}>
       <Tabs
@@ -67,11 +73,11 @@ const FeedSwitcher = ({ posts, user }: FeedSwitcherProps) => {
         textColor="primary"
         aria-label="switcher tabs"
       >
-        <Tab icon={<PeopleIcon />} aria-label="phone" />
-        <Tab icon={<PersonIcon />} aria-label="favorite" />
+        <Tab icon={<PeopleIcon />} aria-label="feed" />
+        <Tab icon={<PersonIcon />} aria-label="posts" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Item One
+        <Posts posts={feed} user={user} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Posts posts={posts} user={user} />
@@ -80,4 +86,4 @@ const FeedSwitcher = ({ posts, user }: FeedSwitcherProps) => {
   );
 };
 
-export default FeedSwitcher;
+export default ThreadSwitcher;

@@ -8,7 +8,8 @@ import { PostFormData } from '../types';
 const BASE_URL_API = environment.baseUrlApi;
 
 const URL_POSTS = `${BASE_URL_API}/api/posts`;
-const URL_BY_USER = `${BASE_URL_API}/api/posts/by`;
+const URL_POSTS_BY_USER = `${BASE_URL_API}/api/posts/by`;
+const URL_FEED_BY_USER = `${BASE_URL_API}/api/posts/feed/by`;
 
 const PostsService = {
   add: (data: PostFormData): Promise<PostDto[]> => {
@@ -20,7 +21,12 @@ const PostsService = {
     });
   },
   getPostsByUserId: (userId: string): Promise<PostDto[]> => {
-    return axios.get(`${URL_BY_USER}/${userId}`).then((response) => {
+    return axios.get(`${URL_POSTS_BY_USER}/${userId}`).then((response) => {
+      return response.data;
+    });
+  },
+  getFeedByUserId: (userId: string): Promise<PostDto[]> => {
+    return axios.get(`${URL_FEED_BY_USER}/${userId}`).then((response) => {
       return response.data;
     });
   },

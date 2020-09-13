@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 // Store
+import { feedLoadEffects } from '../../../store/feed';
 import { postsAddEffects, postsLoadEffects } from '../../../store/posts';
 import {
   usersFollowEffects,
@@ -17,7 +18,7 @@ import {
 } from '../../../store/users';
 
 // Hooks
-import { useAccount, usePosts, useUsers } from '../../../shared/hooks';
+import { useAccount, useFeed, usePosts, useUsers } from '../../../shared/hooks';
 
 // Models
 import { UserDto } from '@iwdf/dto';
@@ -29,11 +30,17 @@ import { PostFormData } from '../../../types';
 import IwdfSpinner from '../../../shared/ui/spinner/spinner';
 
 // Components
-import { DialogFormPost, FeedSwitcher, HintButton, Users } from '../components';
+import {
+  DialogFormPost,
+  ThreadSwitcher,
+  HintButton,
+  Users,
+} from '../components';
 
 const Feed = () => {
   const dispatch = useDispatch();
   const { data: user, loaded: accountLoaded } = useAccount();
+  const { data: feed, loaded: feedLoaded } = useFeed();
   const { data: posts, loaded: postsLoaded } = usePosts();
   const { data: users, loaded: usersLoaded } = useUsers();
 
@@ -43,6 +50,7 @@ const Feed = () => {
   useEffect(() => {
     if (accountLoaded) {
       dispatch(postsLoadEffects(user._id));
+      dispatch(feedLoadEffects(user._id));
     }
     dispatch(usersLoadEffects());
   }, [dispatch, accountLoaded]);
@@ -55,6 +63,10 @@ const Feed = () => {
     dispatch(postsAddEffects(data));
     setOpenDialogFormPost(false);
     setIndexTabSwitcher(1);
+  };
+
+  const onHandleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setIndexTabSwitcher(newValue);
   };
 
   const onFollow = (data: UserDto) => {
@@ -80,7 +92,12 @@ const Feed = () => {
             What's up {user.username}?
           </HintButton>
           {postsLoaded ? (
-            <FeedSwitcher index={indexTabSwitcher} posts={posts} user={user} />
+            <ThreadSwitcher
+              value={indexTabSwitcher}
+              handleChange={onHandleChange}
+              posts={posts}
+              user={user}
+            />
           ) : (
             <IwdfSpinner />
           )}
@@ -102,11 +119,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-/*
-handlerPostSubmit: (data: PostFormData) => void;
-  isDisabled: boolean;
-  isLoading: boolean;
-  open: boolean;
-  user: UserDto;
-*/
