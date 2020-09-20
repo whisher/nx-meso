@@ -42,7 +42,7 @@ const AccountMenu = ({ account, loaded }: AccountMenuProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  console.log('account', account, loaded);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };

@@ -20,5 +20,6 @@
   "home.header": "Welcome in Meso",
   "home.subheader": "The social you are looking for",
   "post.user.header": "Browse User",
-  "post.submit": "Public"
+  "post.submit": "Post",
+  "post.confirm.delete.content": "Do you really want to delete this post?"
 }

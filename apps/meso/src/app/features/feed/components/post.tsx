@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React, { useContext } from 'react';
 
 // Material
 import Avatar from '@material-ui/core/Avatar';
@@ -15,13 +15,11 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import { environment } from '../../../../environments/environment';
 
+// Contexts
+import { DeletePostContext } from '../../../shared/contexts';
+
 // Models
 import { UserDto, PostDto } from '@iwdf/dto';
-
-export interface PostBoxProps {
-  post: PostDto;
-  user: UserDto;
-}
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,8 +44,29 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
 }));
+
+export interface PostBoxProps {
+  post: PostDto;
+  user: UserDto;
+}
+
 const Post = ({ post, user }: PostBoxProps) => {
   const classes = useStyles();
+  const handleDeletePost = useContext(DeletePostContext);
+  const onConfirmDelete = () => {
+    //handleDeletePost();
+  };
+  const iconDelete =
+    user._id === post.postedBy._id ? (
+      <IconButton
+        color="primary"
+        aria-label="delete post"
+        onClick={onConfirmDelete}
+      >
+        <DeleteOutlineIcon />
+      </IconButton>
+    ) : null;
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -58,9 +77,7 @@ const Post = ({ post, user }: PostBoxProps) => {
           />
           <h3>{user.username}</h3>
         </div>
-        <IconButton color="primary" aria-label="delete post">
-          <DeleteOutlineIcon />
-        </IconButton>
+        {iconDelete}
       </div>
       <div className={classes.content}>{post.text}</div>
       <div className={classes.footer}>

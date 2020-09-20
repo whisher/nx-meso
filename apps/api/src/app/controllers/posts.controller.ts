@@ -6,6 +6,7 @@ import {
 } from '../helpers/api-response.helper';
 import { PostDto } from '@iwdf/dto';
 import PostModel from '../models/post.model';
+import UserModel from '../models/user.model';
 
 export const addPost: RequestHandler = async (req, res) => {
   try {
@@ -63,8 +64,9 @@ export const getPostsByUserId = async (req, res) => {
 
 export const getFeedByUserId = async (req, res) => {
   try {
-    const { following, _id } = req.profile;
-    following.push(_id);
+    const id = req.params.userId;
+    const user = await UserModel.findOne({ _id: id });
+    const { following } = user;
     const posts = await PostModel.find({ postedBy: { $in: following } }).sort({
       createdAt: 'desc',
     });

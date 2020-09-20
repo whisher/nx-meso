@@ -62,7 +62,6 @@ const ThreadSwitcher = ({
   value,
 }: ThreadSwitcherProps) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <Tabs

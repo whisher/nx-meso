@@ -101,11 +101,10 @@ const PostForm = ({ isDisabled, isLoading, onSubmit, user }: PostFormProps) => {
     text: '',
     image: null,
   };
-
+  const [fileToUpLoad, setFileToUpLoad] = useState(null);
   const { state, bind } = useForm(initialState);
 
   const { text } = state;
-  const [fileToUpLoad, setFileToUpLoad] = useState(null);
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

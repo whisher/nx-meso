@@ -132,6 +132,7 @@ const AuthSignupForm = ({ isLoading, onSubmit }: AuthSignupFormProps) => {
             </InputLabel>
             <OutlinedInput
               id="signup-password"
+              autoComplete="current-password"
               type={showPassword ? 'text' : 'password'}
               name="password"
               value={password}

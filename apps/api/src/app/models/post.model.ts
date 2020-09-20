@@ -52,7 +52,6 @@ postSchema
   .pre<IPostSchema>('findOne', autoPopulatePostedBy)
   .pre<IPostSchema>('find', autoPopulatePostedBy);
 /* Create index on keys for more performant querying/post sorting */
-
 postSchema.index({ postedBy: 1, createdAt: 1 });
 
 postSchema.plugin(mongodbErrorHandler);

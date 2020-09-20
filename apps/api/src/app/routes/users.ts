@@ -14,7 +14,7 @@ router.param('userId', getUserById);
 
 router.get('/', auth, getUsers);
 
-router.put('/follow', auth, addFollower, addFollowing);
+router.put('/follow', auth, addFollowing, addFollower);
 router.put('/unfollow', auth, deleteFollowing, deleteFollower);
 
 export default router;

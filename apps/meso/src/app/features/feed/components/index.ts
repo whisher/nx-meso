@@ -1,3 +1,4 @@
+export { default as DialogConfirm } from './dialog-confirm';
 export { default as DialogFormPost } from './dialog-form-post';
 export { default as ThreadSwitcher } from './thread-switcher';
 export { default as HintButton } from './hint-button';

@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 // Material
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
+// Intl
+import { FormattedMessage } from 'react-intl';
 
 // Store
 import { feedLoadEffects } from '../../../store/feed';
@@ -20,6 +22,9 @@ import {
 // Hooks
 import { useAccount, useFeed, usePosts, useUsers } from '../../../shared/hooks';
 
+// Contexts
+import { DeletePostContext } from '../../../shared/contexts';
+
 // Models
 import { UserDto } from '@iwdf/dto';
 
@@ -31,6 +36,7 @@ import IwdfSpinner from '../../../shared/ui/spinner/spinner';
 
 // Components
 import {
+  DialogConfirm,
   DialogFormPost,
   ThreadSwitcher,
   HintButton,
@@ -46,6 +52,9 @@ const Feed = () => {
 
   const [indexTabSwitcher, setIndexTabSwitcher] = useState<number>(0);
   const [openDialogFormPost, setOpenDialogFormPost] = useState<boolean>(false);
+  const [openConfirmDeletePost, setOpenConfirmDeletePost] = useState<boolean>(
+    false
+  );
 
   useEffect(() => {
     if (accountLoaded) {
@@ -77,8 +86,19 @@ const Feed = () => {
     dispatch(usersUnFollowEffects(data));
   };
 
+  const onConfirmDeletePost = (flag: boolean) => {
+    setOpenConfirmDeletePost(true);
+    console.log('flag', flag);
+  };
+
   return (
     <>
+      <DialogConfirm
+        handleConfirm={onConfirmDeletePost}
+        open={openConfirmDeletePost}
+      >
+        <FormattedMessage id="post.confirm.delete.content" />
+      </DialogConfirm>
       <DialogFormPost
         handlerPostSubmit={onFormPostSubmit}
         isDisabled={false}
@@ -91,13 +111,16 @@ const Feed = () => {
           <HintButton handlerOpenDialogFormPost={onOpenDialogFormPost}>
             What's up {user.username}?
           </HintButton>
-          {postsLoaded ? (
-            <ThreadSwitcher
-              value={indexTabSwitcher}
-              handleChange={onHandleChange}
-              posts={posts}
-              user={user}
-            />
+          {postsLoaded && feedLoaded ? (
+            <DeletePostContext.Provider value={onConfirmDeletePost}>
+              <ThreadSwitcher
+                value={indexTabSwitcher}
+                feed={feed}
+                posts={posts}
+                user={user}
+                handleChange={onHandleChange}
+              />
+            </DeletePostContext.Provider>
           ) : (
             <IwdfSpinner />
           )}

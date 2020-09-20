@@ -12,6 +12,7 @@ import {
 const router = Router();
 
 router.param('postId', getPostById);
+
 router.post('/', auth, uploadImage, resizeImage, addPost);
 router.get('/by/:userId', auth, getPostsByUserId);
 router.get('/feed/by/:userId', auth, getFeedByUserId);
