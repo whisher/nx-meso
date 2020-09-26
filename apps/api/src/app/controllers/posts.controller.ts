@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import {
   errorResponse,
   successResponseWithData,
+  unauthorizedResponse
 } from '../helpers/api-response.helper';
 import { PostDto } from '@iwdf/dto';
 import PostModel from '../models/post.model';
@@ -24,12 +25,11 @@ export const addPost: RequestHandler = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const { _id } = req.post;
-
-    if (!req.isPoster) {
-      return res.status(400).json({
-        message: 'You are not authorized to perform this action',
-      });
+    const { _id, postedBy } = req.post;
+    const currentUserId = req.user._id;
+   
+    if (String(currentUserId)!==String(postedBy._id)) {
+      return unauthorizedResponse(res, 'You are not authorized to perform this action')
     }
     const post = await PostModel.findOneAndDelete({ _id });
     return successResponseWithData<PostDto>(res, post);
@@ -67,9 +67,11 @@ export const getFeedByUserId = async (req, res) => {
     const id = req.params.userId;
     const user = await UserModel.findOne({ _id: id });
     const { following } = user;
+    
     const posts = await PostModel.find({ postedBy: { $in: following } }).sort({
       createdAt: 'desc',
     });
+  
     return successResponseWithData<PostDto[]>(res, posts);
   } catch (err) {
     return errorResponse(res, err);

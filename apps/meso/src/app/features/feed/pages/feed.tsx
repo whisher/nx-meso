@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Store
 import { feedLoadEffects } from '../../../store/feed';
-import { postsAddEffects, postsLoadEffects } from '../../../store/posts';
+import { postsAddEffects,postsDeleteEffects, postsLoadEffects } from '../../../store/posts';
 import {
   usersFollowEffects,
   usersLoadEffects,
@@ -22,11 +22,8 @@ import {
 // Hooks
 import { useAccount, useFeed, usePosts, useUsers } from '../../../shared/hooks';
 
-// Contexts
-import { DeletePostContext } from '../../../shared/contexts';
-
 // Models
-import { UserDto } from '@iwdf/dto';
+import {PostDto, UserDto } from '@iwdf/dto';
 
 // Types
 import { PostFormData } from '../../../types';
@@ -50,11 +47,13 @@ const Feed = () => {
   const { data: posts, loaded: postsLoaded } = usePosts();
   const { data: users, loaded: usersLoaded } = useUsers();
 
+  
   const [indexTabSwitcher, setIndexTabSwitcher] = useState<number>(0);
   const [openDialogFormPost, setOpenDialogFormPost] = useState<boolean>(false);
   const [openConfirmDeletePost, setOpenConfirmDeletePost] = useState<boolean>(
     false
   );
+  const [postToDelete, setPostToDelete] = useState<PostDto | null>(null);
 
   useEffect(() => {
     if (accountLoaded) {
@@ -86,16 +85,22 @@ const Feed = () => {
     dispatch(usersUnFollowEffects(data));
   };
 
-  const onConfirmDeletePost = (flag: boolean) => {
+  const onConfirmDeletePost = (post:PostDto) => {
+    setPostToDelete(post);
     setOpenConfirmDeletePost(true);
-    console.log('flag', flag);
+  };
+
+  const onConfirmDeletePostResponse = (post:PostDto) => {
+    console.log('postst',post);
+    dispatch(postsDeleteEffects(post))
+    setOpenConfirmDeletePost(false);
   };
 
   return (
     <>
       <DialogConfirm
-        handleConfirm={onConfirmDeletePost}
-        open={openConfirmDeletePost}
+        handleConfirm={onConfirmDeletePostResponse}
+        open={openConfirmDeletePost} post={postToDelete}
       >
         <FormattedMessage id="post.confirm.delete.content" />
       </DialogConfirm>
@@ -112,15 +117,14 @@ const Feed = () => {
             What's up {user.username}?
           </HintButton>
           {postsLoaded && feedLoaded ? (
-            <DeletePostContext.Provider value={onConfirmDeletePost}>
-              <ThreadSwitcher
-                value={indexTabSwitcher}
-                feed={feed}
-                posts={posts}
-                user={user}
-                handleChange={onHandleChange}
-              />
-            </DeletePostContext.Provider>
+            <ThreadSwitcher
+              value={indexTabSwitcher}
+              feed={feed}
+              posts={posts}
+              user={user}
+              handleChange={onHandleChange}
+              handleConfirmDeletePost={onConfirmDeletePost}
+            />
           ) : (
             <IwdfSpinner />
           )}

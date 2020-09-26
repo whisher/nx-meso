@@ -1,23 +1,30 @@
+// Core
 import React from 'react';
 
+// Material
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+// Models
+import {PostDto } from '@iwdf/dto';
+
 export interface DialogConfirmProps {
   children: React.ReactNode;
-  handleConfirm: (flag: boolean) => void;
+  handleConfirm: (post:PostDto) => void;
   open: boolean;
+  post:PostDto
 }
 
 const DialogConfirm = ({
   children,
   handleConfirm,
   open,
+  post
 }: DialogConfirmProps) => {
-  const handleClose = (flag: boolean) => {
-    handleConfirm(flag);
+  const handleClose = (post:PostDto | null) => {
+    handleConfirm(post);
   };
 
   return (
@@ -29,10 +36,10 @@ const DialogConfirm = ({
     >
       <DialogTitle id="dialog-confirm-title">{children}</DialogTitle>
       <DialogActions>
-        <Button onClick={() => handleClose(false)} color="primary">
+        <Button onClick={() => handleClose(null)} color="primary">
           No
         </Button>
-        <Button onClick={() => handleClose(true)} color="primary" autoFocus>
+        <Button onClick={() => handleClose(post)} color="primary" autoFocus>
           Yes
         </Button>
       </DialogActions>

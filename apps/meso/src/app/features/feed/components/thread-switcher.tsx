@@ -40,6 +40,7 @@ const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => {
 
 export interface ThreadSwitcherProps {
   handleChange: (event: React.ChangeEvent<{}>, value: number) => void;
+  handleConfirmDeletePost: (post:PostDto) => void;
   feed: PostDto[];
   posts: PostDto[];
   user: UserDto;
@@ -56,12 +57,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ThreadSwitcher = ({
   handleChange,
+  handleConfirmDeletePost,
   feed,
   posts,
   user,
   value,
 }: ThreadSwitcherProps) => {
   const classes = useStyles();
+  const onConfirmDeletePost = (post:PostDto) => {
+    handleConfirmDeletePost(post);
+  };
   return (
     <div className={classes.root}>
       <Tabs
@@ -79,7 +84,11 @@ const ThreadSwitcher = ({
         <Posts posts={feed} user={user} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Posts posts={posts} user={user} />
+        <Posts
+          handleConfirmDeletePost={onConfirmDeletePost}
+          posts={posts}
+          user={user}
+        />
       </TabPanel>
     </div>
   );

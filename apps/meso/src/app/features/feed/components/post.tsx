@@ -15,9 +15,6 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import { environment } from '../../../../environments/environment';
 
-// Contexts
-import { DeletePostContext } from '../../../shared/contexts';
-
 // Models
 import { UserDto, PostDto } from '@iwdf/dto';
 
@@ -46,16 +43,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export interface PostBoxProps {
+  handleConfirmDeletePost?: (post:PostDto) => void;
   post: PostDto;
   user: UserDto;
 }
 
-const Post = ({ post, user }: PostBoxProps) => {
+const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
   const classes = useStyles();
-  const handleDeletePost = useContext(DeletePostContext);
+
   const onConfirmDelete = () => {
-    //handleDeletePost();
+    handleConfirmDeletePost(post);
   };
+
   const iconDelete =
     user._id === post.postedBy._id ? (
       <IconButton
@@ -72,10 +71,10 @@ const Post = ({ post, user }: PostBoxProps) => {
       <div className={classes.header}>
         <div className={classes.subheader}>
           <Avatar
-            alt={user.avatar}
-            src={`${environment.baseUrlImage}${user.avatar}`}
+            alt={post.postedBy.avatar}
+            src={`${environment.baseUrlImage}${post.postedBy.avatar}`}
           />
-          <h3>{user.username}</h3>
+          <h3>{post.postedBy.username}</h3>
         </div>
         {iconDelete}
       </div>

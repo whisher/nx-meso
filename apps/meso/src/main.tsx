@@ -28,8 +28,8 @@ setupAxiosInterceptors(() => {
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <>
+  <Provider store={store}>
       <ConnectedRouter history={history}>
         <PersistGate loading={null} persistor={persistor}>
           <MuiThemeProvider theme={theme}>
@@ -39,6 +39,7 @@ ReactDOM.render(
         </PersistGate>
       </ConnectedRouter>
     </Provider>
-  </React.StrictMode>,
+  </>
+ ,
   document.getElementById('root')
 );

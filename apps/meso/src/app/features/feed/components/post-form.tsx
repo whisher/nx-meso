@@ -40,21 +40,9 @@ import { useForm } from '../../../shared/hooks';
 // UI
 import LoaderButton from '../../../shared/ui/loader-button/loader-button';
 
-function useWidth() {
-  const theme: Theme = useTheme();
-  const keys: Breakpoint[] = [...theme.breakpoints.keys].reverse();
-  return (
-    keys.reduce((output: BreakpointOrNull, key: Breakpoint) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const matches = useMediaQuery(theme.breakpoints.up(key));
-      return !output && matches ? key : output;
-    }, null) || 'xs'
-  );
-}
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: useWidth() === 'lg' ? '450px' : 'auto',
     marginBottom: theme.spacing(3),
     backgroundColor: theme.palette.primary.light,
   },
