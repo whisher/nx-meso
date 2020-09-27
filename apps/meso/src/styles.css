@@ -1,3 +1,7 @@
 a {
   color: #d3653d;
 }
+.read-more-button {
+  color: #d3653d;
+  cursor: pointer;
+}

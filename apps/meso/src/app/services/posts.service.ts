@@ -30,6 +30,11 @@ const PostsService = {
       return response.data;
     });
   },
+  deleteByPostId: (postId: string): Promise<PostDto> => {
+    return axios.delete(`${URL_POSTS}/${postId}`).then((response) => {
+      return response.data;
+    });
+  },
 };
 
 export default PostsService;

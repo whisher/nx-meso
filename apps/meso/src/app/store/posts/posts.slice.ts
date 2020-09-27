@@ -33,6 +33,24 @@ export const postsSlice = createSlice({
         data: [...state.data, action.payload],
       };
     },
+    postsDelete: (state) => {
+      return {
+        ...state,
+      };
+    },
+    postsDeleteFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
+    postsDeleteSuccess: (state, action) => {
+      return {
+        ...state,
+        error: false,
+        data: state.data.filter((post) => post._id !== action.payload._id),
+      };
+    },
     postsLoad: (state) => {
       return {
         ...state,
@@ -62,6 +80,9 @@ export const {
   postsAdd,
   postsAddFailure,
   postsAddSuccess,
+  postsDelete,
+  postsDeleteFailure,
+  postsDeleteSuccess,
   postsLoad,
   postsLoadFailure,
   postsLoadSuccess,
