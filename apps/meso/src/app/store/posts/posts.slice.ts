@@ -5,7 +5,6 @@ const postsInitialState: PostsState = {
   error: false,
   loaded: false,
   data: [],
-
 };
 
 export const postsSlice = createSlice({
@@ -49,7 +48,7 @@ export const postsSlice = createSlice({
       return {
         ...state,
         error: false,
-        data: state.data.filter(post=> post._id !== action.payload)
+        data: state.data.filter((post) => post._id !== action.payload._id),
       };
     },
     postsLoad: (state) => {
