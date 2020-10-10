@@ -88,7 +88,7 @@ const AuthSignupForm = ({ isLoading, onSubmit }: AuthSignupFormProps) => {
               <FormattedMessage id="auth.signup.label.username" />
             </InputLabel>
             <OutlinedInput
-              id="signup-username"
+              id="signup-username" autoComplete="username"
               type="text"
               value={username}
               name="username"
@@ -110,7 +110,7 @@ const AuthSignupForm = ({ isLoading, onSubmit }: AuthSignupFormProps) => {
               <FormattedMessage id="auth.signup.label.email" />
             </InputLabel>
             <OutlinedInput
-              id="signup-email"
+              id="signup-email" autoComplete="email"
               startAdornment={
                 <InputAdornment position="start">
                   <MailIcon color="disabled" />

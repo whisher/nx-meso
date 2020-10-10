@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Material
 import Alert from '@material-ui/lab/Alert';
+import Card from '@material-ui/core/Card';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import Typography from '@material-ui/core/Typography';
 
@@ -32,6 +33,9 @@ import { useAuth } from '../../../shared/hooks';
 import AuthLoginForm from '../components/login-form';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    'padding': theme.spacing(2),
+  },
   alert: {
     'margin-bottom': theme.spacing(2),
   },
@@ -64,7 +68,7 @@ const AuthLogin = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <Card className={classes.root}>
       <div className={classes.iconWrapper}>
         <LockOpenOutlinedIcon className={classes.icon} />
       </div>
@@ -80,7 +84,7 @@ const AuthLogin = () => {
           <FormattedMessage id="auth.login.signup" />
         </Link>
       </Typography>
-    </>
+    </Card>
   );
 };
 export default AuthLogin;

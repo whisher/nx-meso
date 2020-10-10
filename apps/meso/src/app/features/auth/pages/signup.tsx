@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Material
 import Alert from '@material-ui/lab/Alert';
+import Card from '@material-ui/core/Card';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Typography from '@material-ui/core/Typography';
 
@@ -29,6 +30,9 @@ import AuthSignupForm, {
 
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    'padding': theme.spacing(2),
+  },
   alert: {
     'margin-bottom': theme.spacing(2),
   },
@@ -78,7 +82,7 @@ const AuthSignUp = () => {
     setFormData(data);
   };
   return (
-    <>
+    <Card className={classes.root}>
       <div className={classes.iconWrapper}>
         <PersonAddOutlinedIcon className={classes.icon} />
       </div>
@@ -94,7 +98,7 @@ const AuthSignUp = () => {
           <FormattedMessage id="auth.signup.login" />
         </Link>
       </Typography>
-    </>
+    </Card>
   );
 };
 export default AuthSignUp;

@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Store
 import { feedLoadEffects } from '../../../store/feed';
-import { postsAddEffects,postsDeleteEffects, postsLoadEffects } from '../../../store/posts';
+import { postsAddEffects,postsDeleteEffects, postsLoadEffects,postsToggleLikeEffects } from '../../../store/posts';
 import {
   usersFollowEffects,
   usersLoadEffects,
@@ -90,8 +90,13 @@ const Feed = () => {
     setOpenConfirmDeletePost(true);
   };
 
+  const onToggleLikePost = (post:PostDto) => {
+    console.log(post);
+    const postId = post._id;
+    dispatch(postsToggleLikeEffects({postId}))
+  };
+
   const onConfirmDeletePostResponse = (post:PostDto) => {
-    console.log('postst',post);
     dispatch(postsDeleteEffects(post))
     setOpenConfirmDeletePost(false);
   };
@@ -123,7 +128,7 @@ const Feed = () => {
               posts={posts}
               user={user}
               handleChange={onHandleChange}
-              handleConfirmDeletePost={onConfirmDeletePost}
+              handleConfirmDeletePost={onConfirmDeletePost}  handleToggleLikePost={onToggleLikePost}
             />
           ) : (
             <IwdfSpinner />

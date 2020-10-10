@@ -8,5 +8,6 @@ export interface PostFormData {
 export interface PostsState {
   error: boolean;
   loaded: boolean;
+  loading: boolean;
   data: PostDto[];
 }

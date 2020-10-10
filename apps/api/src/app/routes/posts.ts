@@ -20,6 +20,6 @@ router.post('/', auth, PostValidator.add, uploadImage, resizeImage, addPost);
 router.delete('/:postId', auth, deletePost);
 router.get('/by/:userId', auth, getPostsByUserId);
 router.get('/feed/by/:userId', auth, getFeedByUserId);
-router.put('/togglelike', auth, toggleLike);
+router.put('/', auth, toggleLike);
 
 export default router;

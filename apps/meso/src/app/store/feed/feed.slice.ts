@@ -4,6 +4,7 @@ import { PostsState } from '../../types';
 const postsInitialState: PostsState = {
   error: false,
   loaded: false,
+  loading: false,
   data: [],
 };
 

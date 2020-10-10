@@ -89,7 +89,7 @@ const AuthLoginForm = ({ isLoading, onSubmit }: AuthLoginFormProps) => {
               <FormattedMessage id="auth.login.label.email" />
             </InputLabel>
             <OutlinedInput
-              id="auth-email"
+              id="auth-email" autoComplete="email"
               startAdornment={
                 <InputAdornment position="start">
                   <MailIcon color="disabled" />

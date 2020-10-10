@@ -39,6 +39,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: '1 1 auto',
     paddingTop: theme.spacing(2),
   },
+  footer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: theme.layout.footer.height,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+    color:theme.palette.primary.contrastText
+  },
 }));
 
 export interface MainProps {
@@ -75,10 +85,8 @@ const Main = ({
           <Router isAuthenticated={isAuthenticated}></Router>
         </Container>
       </main>
-      <footer>
-        <Container maxWidth="md">
-          <Footer></Footer>
-        </Container>
+      <footer className={classes.footer}>
+        <Footer></Footer>
       </footer>
     </div>
   );

@@ -16,10 +16,16 @@ import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles((theme: Theme) => ({
   h2: {
+    'margin-bottom': theme.spacing(4),
     color: theme.palette.primary.main,
   },
   body1: {
-    'margin-bottom': theme.spacing(2),
+    'margin-bottom': theme.spacing(4),
+  },
+  cta: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 }));
 
@@ -39,14 +45,16 @@ const Home = () => {
         consectetur, neque doloribus, cupiditate numquam dignissimos laborum
         fugiat deleniti? Eum quasi quidem quibusdam.
       </Typography>
-      <Button
-        variant="outlined"
-        color="primary"
-        component={Link}
-        to={'/auth/signup'}
-      >
-        Sign up its free!
-      </Button>
+      <div className={classes.cta}>
+        <Button
+          variant="outlined"
+          color="primary"
+          component={Link}
+          to={'/auth/signup'}
+        >
+          Sign up its free!
+        </Button>
+      </div>
     </>
   );
 };
