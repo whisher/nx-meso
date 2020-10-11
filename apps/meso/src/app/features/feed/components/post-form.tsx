@@ -1,10 +1,5 @@
 // Core
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-
-type BreakpointOrNull = Breakpoint | null;
+import React, { FormEvent, useState } from 'react';
 
 // Intl
 import { FormattedMessage } from 'react-intl';
@@ -18,7 +13,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 
 // Material Theme

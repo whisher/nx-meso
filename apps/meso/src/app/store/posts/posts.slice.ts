@@ -32,7 +32,7 @@ export const postsSlice = createSlice({
         ...state,
         error: false,
         loading: false,
-        data: [...state.data, action.payload],
+        data: [action.payload,...state.data],
       };
     },
     postsDelete: (state) => {
@@ -95,18 +95,18 @@ export const postsSlice = createSlice({
     },
     postsToggleLikeSuccess: (state, action) => {
       const id = action.payload._id;
-      console.log('payloda',action);
-      const data = [...state.data].map(post=>{
+      const data = state.data.map(post=>{
         if(post._id === id){
-          post.likes = action.payload.likes;
+          return action.payload;
         }
         return post;
       })
+     
       return {
         ...state,
         error: false,
         loading: false,
-        data,
+        data
       };
     },
   },

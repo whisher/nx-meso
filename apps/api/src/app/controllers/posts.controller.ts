@@ -88,9 +88,7 @@ export const toggleLike = async (req, res) => {
   try {
     const { postId } = req.body;
     const post = await PostModel.findOne({ _id: postId });
-    console.log('POST',post);
     const likeIds = post.likes.map((id) => id.toString());
-    console.log('likeIds',likeIds);
     const authUserId = req.user._id.toString();
     if (likeIds.includes(authUserId)) {
       const index = post.likes.indexOf(authUserId);

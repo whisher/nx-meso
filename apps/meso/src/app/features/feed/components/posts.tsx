@@ -9,23 +9,19 @@ import Post from './post';
 
 export interface PostsListProps {
   handleConfirmDeletePost?: (post:PostDto) => void;
-  handleToggleLikePost: (post: PostDto) => void;
   posts: PostDto[];
   user: UserDto;
 }
 
-const Posts = ({ handleConfirmDeletePost,handleToggleLikePost, posts, user }: PostsListProps) => {
+const Posts = ({ handleConfirmDeletePost, posts, user }: PostsListProps) => {
   const onConfirmDeletePost = (post:PostDto) => {
     handleConfirmDeletePost(post);
-  };
-  const onToggleLikePost = (post:PostDto) => {
-    handleToggleLikePost(post);
   };
   return (
     <div>
       {posts.map((post) => (
         <Post
-          handleConfirmDeletePost={onConfirmDeletePost} handleToggleLikePost={onToggleLikePost}
+          handleConfirmDeletePost={onConfirmDeletePost} 
           key={post._id}
           user={user}
           post={post}

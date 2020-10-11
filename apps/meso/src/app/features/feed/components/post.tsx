@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React,{useContext} from 'react';
 
 // Material
 import Avatar from '@material-ui/core/Avatar';
@@ -21,11 +21,22 @@ import { environment } from '../../../../environments/environment';
 // Models
 import { UserDto, PostDto } from '@iwdf/dto';
 
+// Store
+import {feedToggleLikeEffects} from '../../../store/feed';
+import { postsToggleLikeEffects } from '../../../store/posts';
+
+// Hooks
+import { DispatchContext} from '../../../shared/hooks';
+
+// Components
+import CommentPostForm from './comment-form';
+
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%'
   },
   header: {
     display: 'flex',
@@ -57,24 +68,31 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface PostBoxProps {
   handleConfirmDeletePost?: (post: PostDto) => void;
-  handleToggleLikePost: (post: PostDto) => void;
   post: PostDto;
   user: UserDto;
 }
 
-const Post = ({ handleConfirmDeletePost, handleToggleLikePost, post, user }: PostBoxProps) => {
+const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
   const classes = useStyles();
-
+  const dispatch = useContext(DispatchContext);
+  const isOwner = ():boolean => {
+    return user._id === post.postedBy._id;
+  }
   const onConfirmDeletePost = () => {
     handleConfirmDeletePost(post);
   };
 
   const onToggleLikePost = () => {
-    handleToggleLikePost(post);
+    const postId = post._id;
+    if(isOwner()){
+      dispatch(postsToggleLikeEffects({postId}));
+    } else{
+      dispatch(feedToggleLikeEffects({postId}));
+    }
   };
 
   const iconDelete =
-    user._id === post.postedBy._id ? (
+      isOwner() ? (
       <IconButton
         color="primary"
         aria-label="delete post"
@@ -119,6 +137,7 @@ const Post = ({ handleConfirmDeletePost, handleToggleLikePost, post, user }: Pos
           </Badge>
         </div>
       </div>
+      <div><CommentPostForm></CommentPostForm></div>
     </div>
   );
 };

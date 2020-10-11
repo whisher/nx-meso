@@ -41,7 +41,6 @@ const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => {
 export interface ThreadSwitcherProps {
   handleChange: (event: React.ChangeEvent<{}>, value: number) => void;
   handleConfirmDeletePost: (post:PostDto) => void;
-  handleToggleLikePost: (post: PostDto) => void;
   feed: PostDto[];
   posts: PostDto[];
   user: UserDto;
@@ -59,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ThreadSwitcher = ({
   handleChange,
   handleConfirmDeletePost,
-  handleToggleLikePost,
   feed,
   posts,
   user,
@@ -69,10 +67,6 @@ const ThreadSwitcher = ({
 
   const onConfirmDeletePost = (post:PostDto) => {
     handleConfirmDeletePost(post);
-  };
-
-  const onToggleLikePost = (post:PostDto) => {
-    handleToggleLikePost(post);
   };
 
   return (
@@ -89,12 +83,12 @@ const ThreadSwitcher = ({
         <Tab icon={<PersonIcon />} aria-label="posts" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Posts posts={feed} user={user} handleToggleLikePost={onToggleLikePost} />
+        <Posts posts={feed} user={user}  />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Posts
           posts={posts}
-          user={user} handleConfirmDeletePost={onConfirmDeletePost} handleToggleLikePost={onToggleLikePost}
+          user={user} handleConfirmDeletePost={onConfirmDeletePost} 
         />
       </TabPanel>
     </div>

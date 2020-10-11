@@ -13,14 +13,11 @@ export interface FeedListProps {
   user: UserDto;
 }
 
-const Feed = ({handleToggleLikePost, posts, user }: FeedListProps) => {
-  const onToggleLikePost = (post:PostDto) => {
-    handleToggleLikePost(post);
-  };
+const Feed = ({ posts, user }: FeedListProps) => {
   return (
     <div>
       {posts.map((post) => (
-        <Post key={post._id} handleToggleLikePost={onToggleLikePost} user={user} post={post} />
+        <Post key={post._id}  user={user} post={post} />
       ))}
     </div>
   );

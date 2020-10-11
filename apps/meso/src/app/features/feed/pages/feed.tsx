@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 
 // Store
 import { feedLoadEffects } from '../../../store/feed';
-import { postsAddEffects,postsDeleteEffects, postsLoadEffects,postsToggleLikeEffects } from '../../../store/posts';
+import { postsAddEffects,postsDeleteEffects, postsLoadEffects } from '../../../store/posts';
 import {
   usersFollowEffects,
   usersLoadEffects,
@@ -20,7 +20,7 @@ import {
 } from '../../../store/users';
 
 // Hooks
-import { useAccount, useFeed, usePosts, useUsers } from '../../../shared/hooks';
+import { useAccount,DispatchContext, useFeed, usePosts, useUsers } from '../../../shared/hooks';
 
 // Models
 import {PostDto, UserDto } from '@iwdf/dto';
@@ -90,12 +90,6 @@ const Feed = () => {
     setOpenConfirmDeletePost(true);
   };
 
-  const onToggleLikePost = (post:PostDto) => {
-    console.log(post);
-    const postId = post._id;
-    dispatch(postsToggleLikeEffects({postId}))
-  };
-
   const onConfirmDeletePostResponse = (post:PostDto) => {
     dispatch(postsDeleteEffects(post))
     setOpenConfirmDeletePost(false);
@@ -122,14 +116,16 @@ const Feed = () => {
             What's up {user.username}?
           </HintButton>
           {postsLoaded && feedLoaded ? (
+            <DispatchContext.Provider value={dispatch}>
             <ThreadSwitcher
               value={indexTabSwitcher}
               feed={feed}
               posts={posts}
               user={user}
               handleChange={onHandleChange}
-              handleConfirmDeletePost={onConfirmDeletePost}  handleToggleLikePost={onToggleLikePost}
+              handleConfirmDeletePost={onConfirmDeletePost}  
             />
+            </DispatchContext.Provider>
           ) : (
             <IwdfSpinner />
           )}
