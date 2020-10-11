@@ -87,14 +87,16 @@ export const getFeedByUserId = async (req, res) => {
 export const toggleLike = async (req, res) => {
   try {
     const { postId } = req.body;
-
     const post = await PostModel.findOne({ _id: postId });
     const likeIds = post.likes.map((id) => id.toString());
     const authUserId = req.user._id.toString();
     if (likeIds.includes(authUserId)) {
-      await post.likes.pull(authUserId);
+      const index = post.likes.indexOf(authUserId);
+      if (index > -1) {
+        post.likes.splice(index, 1);
+      }
     } else {
-      await post.likes.push(authUserId);
+      post.likes.push(authUserId);
     }
     await post.save();
     return successResponseWithData<PostDto>(res, post);

@@ -21,7 +21,7 @@ const Posts = ({ handleConfirmDeletePost, posts, user }: PostsListProps) => {
     <div>
       {posts.map((post) => (
         <Post
-          handleConfirmDeletePost={onConfirmDeletePost}
+          handleConfirmDeletePost={onConfirmDeletePost} 
           key={post._id}
           user={user}
           post={post}

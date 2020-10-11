@@ -20,6 +20,9 @@ import {
   postsLoad,
   postsLoadFailure,
   postsLoadSuccess,
+  postsToggleLike,
+  postsToggleLikeFailure,
+  postsToggleLikeSuccess
 } from './posts.slice';
 
 export const postsAddEffects = (data: PostFormData) => (
@@ -44,7 +47,7 @@ export const postsDeleteEffects = (data: PostDto) => (
       dispatch(postsDeleteSuccess(res));
     })
     .catch(() => {
-      dispatch(postsAddFailure());
+      dispatch(postsDeleteFailure());
     });
 };
 
@@ -58,5 +61,18 @@ export const postsLoadEffects = (userId: string) => (
     })
     .catch(() => {
       dispatch(postsLoadFailure());
+    });
+};
+
+export const postsToggleLikeEffects = (data: {postId:string}) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => {
+  dispatch(postsToggleLike());
+  PostsService.toggleLike(data)
+    .then((res) => {
+      dispatch(postsToggleLikeSuccess(res));
+    })
+    .catch(() => {
+      dispatch(postsToggleLikeFailure());
     });
 };

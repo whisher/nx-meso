@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React,{useContext} from 'react';
 
 // Material
 import Avatar from '@material-ui/core/Avatar';
@@ -21,11 +21,22 @@ import { environment } from '../../../../environments/environment';
 // Models
 import { UserDto, PostDto } from '@iwdf/dto';
 
+// Store
+import {feedToggleLikeEffects} from '../../../store/feed';
+import { postsToggleLikeEffects } from '../../../store/posts';
+
+// Hooks
+import { DispatchContext} from '../../../shared/hooks';
+
+// Components
+import CommentPostForm from './comment-form';
+
 // Styles
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%'
   },
   header: {
     display: 'flex',
@@ -43,12 +54,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   footer: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
-  },
-  spacer: {
-    paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   cursor: {
     '&:hover': {
@@ -65,17 +74,29 @@ export interface PostBoxProps {
 
 const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
   const classes = useStyles();
-
-  const onConfirmDelete = () => {
+  const dispatch = useContext(DispatchContext);
+  const isOwner = ():boolean => {
+    return user._id === post.postedBy._id;
+  }
+  const onConfirmDeletePost = () => {
     handleConfirmDeletePost(post);
   };
 
+  const onToggleLikePost = () => {
+    const postId = post._id;
+    if(isOwner()){
+      dispatch(postsToggleLikeEffects({postId}));
+    } else{
+      dispatch(feedToggleLikeEffects({postId}));
+    }
+  };
+
   const iconDelete =
-    user._id === post.postedBy._id ? (
+      isOwner() ? (
       <IconButton
         color="primary"
         aria-label="delete post"
-        onClick={onConfirmDelete}
+        onClick={onConfirmDeletePost}
       >
         <DeleteOutlineIcon />
       </IconButton>
@@ -105,9 +126,9 @@ const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
         </div>
       ) : null}
       <div className={classes.footer}>
-        <div className={classes.spacer}>
+        <div>
           <Badge badgeContent={post.likes.length}>
-            <FavoriteBorderIcon className={classes.cursor} color="primary" />
+            <FavoriteBorderIcon onClick={onToggleLikePost} className={classes.cursor} color="secondary" />
           </Badge>
         </div>
         <div>
@@ -116,6 +137,7 @@ const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
           </Badge>
         </div>
       </div>
+      <div><CommentPostForm></CommentPostForm></div>
     </div>
   );
 };

@@ -6,7 +6,14 @@ import { AnyAction } from 'redux';
 import { PostsService } from '../../services';
 
 // Actions
-import { feedLoad, feedLoadFailure, feedLoadSuccess } from './feed.slice';
+import { 
+  feedLoad, 
+  feedLoadFailure, 
+  feedLoadSuccess,
+  feedToggleLike,
+  feedToggleLikeFailure,
+  feedToggleLikeSuccess  
+} from './feed.slice';
 
 export const feedLoadEffects = (userId: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>
@@ -18,5 +25,18 @@ export const feedLoadEffects = (userId: string) => (
     })
     .catch(() => {
       dispatch(feedLoadFailure());
+    });
+};
+
+export const feedToggleLikeEffects = (data: {postId:string}) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => {
+  dispatch(feedToggleLike());
+  PostsService.toggleLike(data)
+    .then((res) => {
+      dispatch(feedToggleLikeSuccess(res));
+    })
+    .catch(() => {
+      dispatch(feedToggleLikeFailure());
     });
 };

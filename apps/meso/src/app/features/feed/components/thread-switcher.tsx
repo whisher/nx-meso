@@ -64,9 +64,11 @@ const ThreadSwitcher = ({
   value,
 }: ThreadSwitcherProps) => {
   const classes = useStyles();
+
   const onConfirmDeletePost = (post:PostDto) => {
     handleConfirmDeletePost(post);
   };
+
   return (
     <div className={classes.root}>
       <Tabs
@@ -81,13 +83,12 @@ const ThreadSwitcher = ({
         <Tab icon={<PersonIcon />} aria-label="posts" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Posts posts={feed} user={user} />
+        <Posts posts={feed} user={user}  />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Posts
-          handleConfirmDeletePost={onConfirmDeletePost}
           posts={posts}
-          user={user}
+          user={user} handleConfirmDeletePost={onConfirmDeletePost} 
         />
       </TabPanel>
     </div>

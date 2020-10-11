@@ -20,7 +20,7 @@ import {
 } from '../../../store/users';
 
 // Hooks
-import { useAccount, useFeed, usePosts, useUsers } from '../../../shared/hooks';
+import { useAccount,DispatchContext, useFeed, usePosts, useUsers } from '../../../shared/hooks';
 
 // Models
 import {PostDto, UserDto } from '@iwdf/dto';
@@ -91,7 +91,6 @@ const Feed = () => {
   };
 
   const onConfirmDeletePostResponse = (post:PostDto) => {
-    console.log('postst',post);
     dispatch(postsDeleteEffects(post))
     setOpenConfirmDeletePost(false);
   };
@@ -117,14 +116,16 @@ const Feed = () => {
             What's up {user.username}?
           </HintButton>
           {postsLoaded && feedLoaded ? (
+            <DispatchContext.Provider value={dispatch}>
             <ThreadSwitcher
               value={indexTabSwitcher}
               feed={feed}
               posts={posts}
               user={user}
               handleChange={onHandleChange}
-              handleConfirmDeletePost={onConfirmDeletePost}
+              handleConfirmDeletePost={onConfirmDeletePost}  
             />
+            </DispatchContext.Provider>
           ) : (
             <IwdfSpinner />
           )}

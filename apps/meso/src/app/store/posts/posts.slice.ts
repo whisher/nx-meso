@@ -4,6 +4,7 @@ import { PostsState } from '../../types';
 const postsInitialState: PostsState = {
   error: false,
   loaded: false,
+  loading:false,
   data: [],
 };
 
@@ -14,7 +15,7 @@ export const postsSlice = createSlice({
     postsAdd: (state) => {
       return {
         ...state,
-        loaded: true,
+        loading: true,
       };
     },
     postsAddFailure: (state) => {
@@ -22,6 +23,7 @@ export const postsSlice = createSlice({
         ...state,
         error: true,
         loaded: false,
+        loading: false,
         data: [],
       };
     },
@@ -29,25 +31,28 @@ export const postsSlice = createSlice({
       return {
         ...state,
         error: false,
-        loaded: true,
-        data: [...state.data, action.payload],
+        loading: false,
+        data: [action.payload,...state.data],
       };
     },
     postsDelete: (state) => {
       return {
         ...state,
+        loading: true,
       };
     },
     postsDeleteFailure: (state) => {
       return {
         ...state,
         error: true,
+        loading: false,
       };
     },
     postsDeleteSuccess: (state, action) => {
       return {
         ...state,
         error: false,
+        loading: false,
         data: state.data.filter((post) => post._id !== action.payload._id),
       };
     },
@@ -73,6 +78,37 @@ export const postsSlice = createSlice({
         data: action.payload,
       };
     },
+    postsToggleLike: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    postsToggleLikeFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+        loaded: false,
+        loading: false,
+        data: [],
+      };
+    },
+    postsToggleLikeSuccess: (state, action) => {
+      const id = action.payload._id;
+      const data = state.data.map(post=>{
+        if(post._id === id){
+          return action.payload;
+        }
+        return post;
+      })
+     
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        data
+      };
+    },
   },
 });
 
@@ -86,6 +122,9 @@ export const {
   postsLoad,
   postsLoadFailure,
   postsLoadSuccess,
+  postsToggleLike,
+  postsToggleLikeFailure,
+  postsToggleLikeSuccess
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
