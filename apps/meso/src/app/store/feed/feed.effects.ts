@@ -2,17 +2,23 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
+// Models
+import { CommentFormData } from '../../types';
+
 // Services
 import { PostsService } from '../../services';
 
 // Actions
-import { 
-  feedLoad, 
-  feedLoadFailure, 
+import {
+  feedAddComment,
+  feedAddCommentFailure,
+  feedAddCommentSuccess,
+  feedLoad,
+  feedLoadFailure,
   feedLoadSuccess,
   feedToggleLike,
   feedToggleLikeFailure,
-  feedToggleLikeSuccess  
+  feedToggleLikeSuccess,
 } from './feed.slice';
 
 export const feedLoadEffects = (userId: string) => (
@@ -28,7 +34,7 @@ export const feedLoadEffects = (userId: string) => (
     });
 };
 
-export const feedToggleLikeEffects = (data: {postId:string}) => (
+export const feedToggleLikeEffects = (data: { postId: string }) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>
 ) => {
   dispatch(feedToggleLike());
@@ -38,5 +44,18 @@ export const feedToggleLikeEffects = (data: {postId:string}) => (
     })
     .catch(() => {
       dispatch(feedToggleLikeFailure());
+    });
+};
+
+export const addCommentEffects = (data: CommentFormData) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
+) => {
+  dispatch(feedAddComment());
+  PostsService.addComment(data)
+    .then((res) => {
+      dispatch(feedAddCommentSuccess(res));
+    })
+    .catch(() => {
+      dispatch(feedAddCommentFailure());
     });
 };

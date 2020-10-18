@@ -104,3 +104,21 @@ export const toggleLike = async (req, res) => {
     return errorResponse(res, err);
   }
 };
+
+export const addComment = async (req, res) => {
+  try {
+    const { text, postId } = req.body;
+    const data = { text, postedBy: req.user._id };
+    const updatedPost = await PostModel.findOneAndUpdate(
+      { _id: postId },
+      { ['$push']: { comments: data } },
+      { new: true }
+    )
+      .populate('postedBy', '_id name avatar')
+      .populate('comments.postedBy', '_id name avatar');
+    return successResponseWithData<PostDto>(res, updatedPost);
+  } catch (err) {
+    console.log('ERROR', err);
+    return errorResponse(res, err);
+  }
+};

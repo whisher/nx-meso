@@ -4,6 +4,7 @@ import { uploadImage } from '../middlewares/upload-image';
 import { resizeImage } from '../middlewares/resize-image';
 import * as PostValidator from '../validators/post.validator';
 import {
+  addComment,
   addPost,
   deletePost,
   getFeedByUserId,
@@ -21,5 +22,5 @@ router.delete('/:postId', auth, deletePost);
 router.get('/by/:userId', auth, getPostsByUserId);
 router.get('/feed/by/:userId', auth, getFeedByUserId);
 router.put('/', auth, toggleLike);
-
+router.put('/comment', auth, addComment);
 export default router;
