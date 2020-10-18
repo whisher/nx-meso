@@ -12,6 +12,36 @@ export const feedSlice = createSlice({
   name: 'feed',
   initialState: postsInitialState as PostsState,
   reducers: {
+    feedAddComment: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    feedAddCommentFailure: (state) => {
+      return {
+        ...state,
+        error: true,
+        loaded: false,
+        loading: false,
+        data: [],
+      };
+    },
+    feedAddCommentSuccess: (state, action) => {
+      const id = action.payload._id;
+      const data = state.data.map((post) => {
+        if (post._id === id) {
+          return action.payload;
+        }
+        return post;
+      });
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        data,
+      };
+    },
     feedLoad: (state) => {
       return {
         ...state,
@@ -51,30 +81,32 @@ export const feedSlice = createSlice({
     },
     feedToggleLikeSuccess: (state, action) => {
       const id = action.payload._id;
-      const data = state.data.map(post=>{
-        if(post._id === id){
+      const data = state.data.map((post) => {
+        if (post._id === id) {
           return action.payload;
         }
         return post;
-      })
-     
+      });
       return {
         ...state,
         error: false,
         loading: false,
-        data
+        data,
       };
     },
   },
 });
 
-export const { 
-  feedLoad, 
-  feedLoadFailure, 
+export const {
+  feedAddComment,
+  feedAddCommentFailure,
+  feedAddCommentSuccess,
+  feedLoad,
+  feedLoadFailure,
   feedLoadSuccess,
   feedToggleLike,
   feedToggleLikeFailure,
-  feedToggleLikeSuccess 
+  feedToggleLikeSuccess,
 } = feedSlice.actions;
 
 export default feedSlice.reducer;

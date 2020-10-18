@@ -1,5 +1,5 @@
 // Core
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 
 // Material
 import Avatar from '@material-ui/core/Avatar';
@@ -20,15 +20,17 @@ import { environment } from '../../../../environments/environment';
 
 // Models
 import { UserDto, PostDto } from '@iwdf/dto';
+import { CommentFormData } from '../../../types';
 
 // Store
-import {feedToggleLikeEffects} from '../../../store/feed';
+import { addCommentEffects, feedToggleLikeEffects } from '../../../store/feed';
 import { postsToggleLikeEffects } from '../../../store/posts';
 
 // Hooks
-import { DispatchContext} from '../../../shared/hooks';
+import { DispatchContext } from '../../../shared/hooks';
 
 // Components
+import { Comment } from './comment';
 import CommentPostForm from './comment-form';
 
 // Styles
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
   },
   header: {
     display: 'flex',
@@ -66,41 +68,51 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export interface PostBoxProps {
+export interface PostProps {
   handleConfirmDeletePost?: (post: PostDto) => void;
   post: PostDto;
   user: UserDto;
 }
 
-const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
+const Post = ({ handleConfirmDeletePost, post, user }: PostProps) => {
   const classes = useStyles();
   const dispatch = useContext(DispatchContext);
-  const isOwner = ():boolean => {
+
+  const isOwner = (): boolean => {
     return user._id === post.postedBy._id;
-  }
+  };
+
   const onConfirmDeletePost = () => {
     handleConfirmDeletePost(post);
   };
 
   const onToggleLikePost = () => {
     const postId = post._id;
-    if(isOwner()){
-      dispatch(postsToggleLikeEffects({postId}));
-    } else{
-      dispatch(feedToggleLikeEffects({postId}));
+    if (isOwner()) {
+      dispatch(postsToggleLikeEffects({ postId }));
+    } else {
+      dispatch(feedToggleLikeEffects({ postId }));
     }
   };
 
-  const iconDelete =
-      isOwner() ? (
-      <IconButton
-        color="primary"
-        aria-label="delete post"
-        onClick={onConfirmDeletePost}
-      >
-        <DeleteOutlineIcon />
-      </IconButton>
-    ) : null;
+  const onSubmitComment = (data: CommentFormData) => {
+    const commentData = { ...data, ...{ postId: post._id } };
+    if (isOwner()) {
+      dispatch(addCommentEffects(commentData));
+    } else {
+      dispatch(addCommentEffects(commentData));
+    }
+  };
+
+  const iconDelete = isOwner() ? (
+    <IconButton
+      color="primary"
+      aria-label="delete post"
+      onClick={onConfirmDeletePost}
+    >
+      <DeleteOutlineIcon />
+    </IconButton>
+  ) : null;
 
   return (
     <div className={classes.root}>
@@ -128,7 +140,11 @@ const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
       <div className={classes.footer}>
         <div>
           <Badge badgeContent={post.likes.length}>
-            <FavoriteBorderIcon onClick={onToggleLikePost} className={classes.cursor} color="secondary" />
+            <FavoriteBorderIcon
+              onClick={onToggleLikePost}
+              className={classes.cursor}
+              color="secondary"
+            />
           </Badge>
         </div>
         <div>
@@ -137,7 +153,12 @@ const Post = ({ handleConfirmDeletePost, post, user }: PostBoxProps) => {
           </Badge>
         </div>
       </div>
-      <div><CommentPostForm></CommentPostForm></div>
+      <div>
+        {post.comments.map((comment) => (
+          <Comment comment={comment} user={user} />
+        ))}
+        <CommentPostForm onSubmit={onSubmitComment}></CommentPostForm>
+      </div>
     </div>
   );
 };
