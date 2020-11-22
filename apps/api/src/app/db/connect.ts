@@ -7,7 +7,7 @@ const connection = () => {
   const MONGODB_URL = environment.mongoDb;
   const DB = environment.production ? 'production10' : 'devops1';
   const options = { useNewUrlParser: true, useUnifiedTopology: true };
-  const uri = `${MONGODB_URL}/${DB}`;
+  const uri = `${MONGODB_URL}`;
   connect(uri, options)
     .then(() => {
       debuger('Connected to database!');
