@@ -1,7 +1,7 @@
-import { Document, model, Schema } from 'mongoose';
+import { Document, model, Schema, Types } from 'mongoose';
 import * as mongodbErrorHandler from 'mongoose-mongodb-errors';
 
-const { ObjectId } = Schema;
+const { ObjectId } = Types;
 
 interface IUserSchema extends Document {
   about: string;
@@ -13,7 +13,7 @@ interface IUserSchema extends Document {
   following: any[];
   followers: any[];
 }
-const userSchema = Schema(
+const userSchema = new Schema(
   {
     about: {
       type: String,

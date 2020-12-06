@@ -1,6 +1,6 @@
 import Debug from 'debug';
 const debuger = Debug('app:server');
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
 import { environment } from '../../environments/environment';
 
 const connection = () => {
@@ -9,8 +9,7 @@ const connection = () => {
   const DB = environment.production ? 'mesoprod' : 'mesodev';
   const options = { useNewUrlParser: true };
   const URI = `${MONGODB_URL}${DB}?retryWrites=true&w=majority`;
-  mongoose
-    .connect(URI, options)
+  connect(URI, options)
     .then(() => {
       debuger('Connected to database!');
     })

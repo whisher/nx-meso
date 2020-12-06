@@ -1,4 +1,4 @@
-describe('meso home', () => {
+describe('ui meso home', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display Welcome in Meso and localStorage set to en', () => {

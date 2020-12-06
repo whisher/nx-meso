@@ -1,4 +1,5 @@
-import { authLocalStorage, adaptToReduxPersist } from '../../../fixtures/auth/localStorage.mock';
+import * as authLocalStorage from '../../../../fixtures/auth/localStorageState.json';
+import { adaptToReduxPersist } from '../../../../utils/adaptToReduxPersist';
 
 const loginPath = '/auth/login';
 
@@ -21,8 +22,11 @@ describe('meso signup', () => {
     it('should redirect to feed page if token exist', () => {
       cy.visit(loginPath, {
         onBeforeLoad(win) {
-          win.localStorage.setItem('persist:root', adaptToReduxPersist(authLocalStorage));
-        }
+          win.localStorage.setItem(
+            'persist:root',
+            adaptToReduxPersist(authLocalStorage)
+          );
+        },
       });
 
       cy.location('pathname').should('eq', '/');

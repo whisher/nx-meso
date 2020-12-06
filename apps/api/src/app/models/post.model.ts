@@ -1,7 +1,7 @@
-import { Document, model, Schema } from 'mongoose';
+import { Document, model, Schema, Types } from 'mongoose';
 import * as mongodbErrorHandler from 'mongoose-mongodb-errors';
 
-const { ObjectId } = Schema;
+const { ObjectId } = Types;
 
 interface IPostSchema extends Document {
   text: string;
