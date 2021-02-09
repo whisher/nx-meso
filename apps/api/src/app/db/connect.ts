@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 const connection = () => {
   const MONGODB_URL =
-    'mongodb+srv://meso1:BQZt5REQILyLk7Ac@cluster0.bgvll.mongodb.net/';
+    'mongodb+srv://URL_TO_MONGODB/';
   const DB = environment.production ? 'mesoprod' : 'mesodev';
   const options = { useNewUrlParser: true };
   const URI = `${MONGODB_URL}${DB}?retryWrites=true&w=majority`;
